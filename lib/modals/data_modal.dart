@@ -7,6 +7,7 @@ class CalculationDisplayModal {
   double fcr;
   double cfcr;
   double mortalityCount;
+  int age;
 
   CalculationDisplayModal({
     required this.id,
@@ -17,6 +18,7 @@ class CalculationDisplayModal {
     required this.fcr,
     required this.cfcr,
     required this.mortalityCount,
+    required this.age,
   }) {}
 }
 
@@ -27,7 +29,6 @@ class InputsModal {
   double totalFeedConsumed;
   String? farmerName;
   String? feedName;
-  int? age;
   DateTime chickPlacementDate;
   DateTime chickSellDate;
 
@@ -38,7 +39,13 @@ class InputsModal {
       required this.totalFeedConsumed,
       this.farmerName,
       this.feedName,
-      this.age,
       required this.chickPlacementDate,
       required this.chickSellDate});
+}
+
+class UserModal {
+  String userName;
+  String userId;
+
+  UserModal({required this.userName, required this.userId});
 }

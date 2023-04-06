@@ -1,11 +1,43 @@
 import 'package:fcr_calculator/Screens/register_screen.dart';
+import 'package:fcr_calculator/services/firebase_service.dart';
+import 'package:fcr_calculator/tabs_page.dart';
+import 'package:fcr_calculator/utils/utils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   LoginScreen({super.key});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  bool isLoading = false;
+
   TextEditingController emailController = TextEditingController();
+
   TextEditingController passwordController = TextEditingController();
+
+  login(BuildContext context) async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim());
+
+      await initializeDataFromDB();
+      isLoading = false;
+      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_) {
+        return TabsPage();
+      }), (route) => false);
+    } on FirebaseAuthException catch (e) {
+      isLoading = false;
+      showErrorDialog(context, e.message.toString());
+    }
+  }
 
   Widget inputFieldBuilder(
       {required BuildContext context,
@@ -37,6 +69,7 @@ class LoginScreen extends StatelessWidget {
                 Container(
                   width: constraints.maxWidth * 0.9,
                   child: TextField(
+                    controller: controller,
                     obscureText: obscureTextEnabled,
                     style: Theme.of(context).textTheme.labelMedium,
                     keyboardType: keyboardType,
@@ -53,60 +86,73 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        height: MediaQuery.of(context).size.height -
-            MediaQuery.of(context).padding.top,
-        width: MediaQuery.of(context).size.width,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            inputFieldBuilder(
-                context: context,
-                hintText: 'Enter Your Email',
-                controller: emailController,
-                icon: Icon(Icons.email),
-                type: 'email'),
-            inputFieldBuilder(
-                context: context,
-                hintText: 'Enter Your Password',
-                controller: passwordController,
-                icon: Icon(Icons.lock),
-                type: 'password'),
-            GestureDetector(
-              onTap: () {
-                // doCalculations();
-              },
-              child: Center(
-                child: Container(
-                    margin: EdgeInsets.symmetric(vertical: 20),
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    height: 40,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
-                        borderRadius: BorderRadius.circular(100)),
+      body: Stack(
+        children: [
+          if (isLoading)
+            Center(
+              child: CircularProgressIndicator(),
+            ),
+          IgnorePointer(
+            ignoring: isLoading,
+            child: Container(
+              height: MediaQuery.of(context).size.height -
+                  MediaQuery.of(context).padding.top,
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  inputFieldBuilder(
+                      context: context,
+                      hintText: 'Enter Your Email',
+                      controller: emailController,
+                      icon: Icon(Icons.email),
+                      type: 'email'),
+                  inputFieldBuilder(
+                      context: context,
+                      hintText: 'Enter Your Password',
+                      controller: passwordController,
+                      icon: Icon(Icons.lock),
+                      type: 'password'),
+                  GestureDetector(
+                    onTap: () {
+                      login(context);
+                    },
+                    child: Center(
+                      child: Container(
+                          margin: EdgeInsets.symmetric(vertical: 20),
+                          width: MediaQuery.of(context).size.width * 0.9,
+                          height: 40,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColor,
+                              borderRadius: BorderRadius.circular(100)),
+                          child: Text(
+                            'Login',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          )),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (_) {
+                        return RegisterScreen();
+                      }));
+                    },
                     child: Text(
-                      'Login',
+                      'Register',
                       style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
-                    )),
+                          color: Theme.of(context).primaryColor,
+                          decoration: TextDecoration.underline),
+                    ),
+                  )
+                ],
               ),
             ),
-            GestureDetector(
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-                  return RegisterScreen();
-                }));
-              },
-              child: Text(
-                'Register',
-                style: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                    decoration: TextDecoration.underline),
-              ),
-            )
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

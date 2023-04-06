@@ -75,3 +75,56 @@ void showSuccessDialog(BuildContext context, String message) {
         );
       });
 }
+
+Future showDeleteConfirmationModal(BuildContext context, String message) {
+  return showDialog(
+      context: context,
+      builder: (_) {
+        return Dialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          alignment: Alignment.center,
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.white,
+            ),
+            height: 200,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(bottom: 20),
+                  child: Icon(
+                    Icons.delete_forever_outlined,
+                    size: 50,
+                    color: Colors.red,
+                  ),
+                ),
+                Text(
+                  message,
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop('cancel');
+                        },
+                        child: Text('Cancel')),
+                    TextButton(
+                        onPressed: () async {
+                          Navigator.of(context).pop('delete');
+                        },
+                        child: Text('Delete'))
+                  ],
+                )
+              ],
+            ),
+          ),
+        );
+      });
+}

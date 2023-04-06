@@ -3,9 +3,14 @@ import 'package:fcr_calculator/utils/gettersetter.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class HistoryScreen extends StatelessWidget {
+class HistoryScreen extends StatefulWidget {
   const HistoryScreen({super.key});
 
+  @override
+  State<HistoryScreen> createState() => _HistoryScreenState();
+}
+
+class _HistoryScreenState extends State<HistoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,29 +31,104 @@ class HistoryScreen extends StatelessWidget {
                   return InformationScreen(
                     calculationDisplayInformation: getCalculationHistory[index],
                   );
-                }));
+                })).then((value) {
+                  setState(() {
+                    print('Set State');
+                  });
+                });
               },
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Theme.of(context).primaryColorLight,
-                          blurRadius: 4)
-                    ]),
-                margin: EdgeInsets.symmetric(vertical: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(DateFormat.yMMMEd().format(getCalculationHistory[index]
-                        .inputs
-                        .chickPlacementDate)),
-                    Text('${getCalculationHistory[index].inputs.farmerName}'),
-                    Text('${getCalculationHistory[index].inputs.feedName}'),
-                  ],
-                ),
+              child: Stack(
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Theme.of(context).primaryColorLight,
+                              blurRadius: 4)
+                        ]),
+                    margin: EdgeInsets.symmetric(vertical: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.symmetric(vertical: 5),
+                              child: Text(
+                                  DateFormat.yMMMd().format(
+                                      getCalculationHistory[index]
+                                          .inputs
+                                          .chickPlacementDate),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16)),
+                            ),
+                            Text('  ||  '),
+                            Container(
+                              margin: EdgeInsets.symmetric(vertical: 5),
+                              child: Text(
+                                  DateFormat.yMMMd().format(
+                                      getCalculationHistory[index]
+                                          .inputs
+                                          .chickSellDate),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16)),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.symmetric(vertical: 5),
+                                  child: Text(
+                                    '${getCalculationHistory[index].inputs.farmerName}',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16),
+                                  ),
+                                ),
+                                Text(
+                                  '${getCalculationHistory[index].inputs.feedName}',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 15),
+                                ),
+                              ],
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Colors.black, width: 1)),
+                              child: Text(
+                                getCalculationHistory[index]
+                                    .fcr
+                                    .toStringAsFixed(2),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 16,
+                                    color: getCalculationHistory[index].fcr <
+                                            1.5
+                                        ? Colors.green
+                                        : getCalculationHistory[index].fcr > 1.6
+                                            ? Colors.red
+                                            : Colors.amber),
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             );
           },

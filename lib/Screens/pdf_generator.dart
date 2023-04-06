@@ -8,10 +8,11 @@ import 'package:pdf/widgets.dart';
 
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
-
-final doc = Document();
+import 'package:uuid/uuid.dart';
 
 void generatePDF(CalculationDisplayModal pdfInfo) async {
+  final doc = Document();
+
   doc.addPage(Page(
       pageFormat: PdfPageFormat.a4,
       build: (Context context) {
@@ -74,6 +75,10 @@ void generatePDF(CalculationDisplayModal pdfInfo) async {
                   Center(child: (Text(pdfInfo.cfcr.toString())))
                 ]),
                 TableRow(children: [
+                  Center(child: (Text('Age'))),
+                  Center(child: (Text(pdfInfo.age.toString())))
+                ]),
+                TableRow(children: [
                   Center(child: (Text('Farmer Name'))),
                   Center(child: (Text(pdfInfo.inputs.farmerName.toString())))
                 ]),
@@ -98,7 +103,7 @@ void generatePDF(CalculationDisplayModal pdfInfo) async {
       }));
 
   final output = await getTemporaryDirectory();
-  final file = File('${output.path}/exampsdfd7678le.pdf');
+  final file = File('${output.path}/${Uuid().v1()}.pdf');
 
   // Convert the Uint8List to a List<int>
   final pdfBytes = await doc.save();

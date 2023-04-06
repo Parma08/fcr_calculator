@@ -36,6 +36,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   double cfcr = 0;
   bool showValues = false;
   double mortalityCount = 0;
+  int age = 0;
 
   fieldReset() {
     totalSoldWeight = TextEditingController();
@@ -55,15 +56,16 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     cfcr = 0;
     showValues = false;
     mortalityCount = 0;
+    age = 0;
   }
 
   doCalculations() {
-    if (showValues) {
-      setState(() {
-        fieldReset();
-      });
-      return;
-    }
+    // if (showValues) {
+    //   setState(() {
+    //     fieldReset();
+    //   });
+    //   return;
+    // }
     if (widget.showFullCalculator) {
       if (farmerName.text.isEmpty ||
           feedName.text.isEmpty ||
@@ -99,6 +101,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     cfcr = calculateCFCR(avgWeight, fcr);
 
     mortalityCount = (totalPlacedChicksValue / 100) * mortality;
+    age = chickSellDate.difference(chickPlacementDate).inDays;
 
     setState(() {
       showValues = true;
@@ -256,17 +259,11 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                     decoration: BoxDecoration(
                         color: Theme.of(context).primaryColor,
                         borderRadius: BorderRadius.circular(100)),
-                    child: showValues
-                        ? Text('Reset',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold))
-                        : Text(
-                            'Calculate FCR',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          )),
+                    child: Text(
+                      'Calculate FCR',
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    )),
               ),
             ),
             showValues
@@ -284,6 +281,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                             feedName: feedName.text,
                             chickPlacementDate: chickPlacementDate,
                             chickSellDate: chickSellDate),
+                        age: age,
                         averageWeight: avgWeight,
                         livability: livability,
                         mortality: mortality,

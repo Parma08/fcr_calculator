@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "53624894288",
+    "project_id": "fcr-calculator-b5ae8",
+    "storage_bucket": "fcr-calculator-b5ae8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:53624894288:android:bb1e73048e00ee34043255",
+        "android_client_info": {
+          "package_name": "com.bolbam.fcr_calculator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "53624894288-ng3ng9jroca9e4g8a33pmb89tff8uigk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_m27nK_3k4Lqw3XlrkJrqAtTtVs4Ztpo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "53624894288-ng3ng9jroca9e4g8a33pmb89tff8uigk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

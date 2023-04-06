@@ -18,9 +18,17 @@ class TableDisplay extends StatelessWidget {
     required this.saveDataEnabled,
   });
 
-  saveData(BuildContext context) {
-    setCalculationHistory(calculationData);
-    showSuccessDialog(context, 'Ho gaya Save');
+  saveData(BuildContext context) async {
+    var status = await setCalculationHistory(calculationData);
+    if (status == 'success') {
+      showSuccessDialog(context, 'Ho gaya Save');
+    } else {
+      showErrorDialog(context, status);
+    }
+    // Future.delayed(Duration(seconds: 2), () {
+    //   Navigator.of(context).pop();
+    //   Navigator.of(context).pop();
+    // });
   }
 
   Widget showCalculatedData(BuildContext context, String title, dynamic value) {
@@ -102,6 +110,7 @@ class TableDisplay extends StatelessWidget {
             children: [
               showCalculatedData(
                   context, 'Farmer Name', calculationData.inputs.farmerName),
+              showCalculatedData(context, 'Age', calculationData.age),
               showCalculatedData(
                   context, 'Feed Name', calculationData.inputs.feedName),
               showCalculatedData(
