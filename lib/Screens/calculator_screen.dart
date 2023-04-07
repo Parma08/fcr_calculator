@@ -1,5 +1,6 @@
 import 'package:fcr_calculator/calculations.dart';
 import 'package:fcr_calculator/modals/data_modal.dart';
+import 'package:fcr_calculator/utils/gettersetter.dart';
 import 'package:fcr_calculator/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -40,6 +41,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   double mortalityCount = 0;
   int age = 0;
   double feedDifference = 0;
+  double idealFeedConsumption = 0;
 
   final scrollController = ScrollController();
 
@@ -74,6 +76,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     fcr = 0;
 
     feedDifference = 0;
+
+    idealFeedConsumption = 0;
     cfcr = 0;
     showValues = false;
     mortalityCount = 0;
@@ -121,6 +125,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     age = chickSellDate.difference(chickPlacementDate).inDays;
     feedDifference = calculateFeedDifference(
         expectedFCRValue, totalSoldWeightValue, totalFeedConsumedValue);
+    idealFeedConsumption =
+        calculateIdealFeedConsumption(expectedFCRValue, totalSoldWeightValue);
 
     setState(() {
       showValues = true;
@@ -129,31 +135,38 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
 
   Widget labelFieldsBuilder(
       TextEditingController controller, String labelName) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      width: MediaQuery.of(context).size.width,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            labelName,
-            style: Theme.of(context).textTheme.labelMedium,
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 5),
-            height: 50,
-            width: 100,
-            decoration: BoxDecoration(
-                color: Color(0xFFE4E4E4),
-                borderRadius: BorderRadius.circular(10)),
-            child: TextField(
+    return Tooltip(
+      decoration: BoxDecoration(color: Theme.of(context).primaryColor),
+      preferBelow: false,
+      waitDuration: Duration(microseconds: 10),
+      padding: EdgeInsets.all(10),
+      message: getQuickInfo(labelName),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        width: MediaQuery.of(context).size.width,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              labelName,
               style: Theme.of(context).textTheme.labelMedium,
-              decoration: InputDecoration(border: InputBorder.none),
-              controller: controller,
-              keyboardType: TextInputType.number,
             ),
-          )
-        ],
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 5),
+              height: 50,
+              width: 100,
+              decoration: BoxDecoration(
+                  color: Color(0xFFE4E4E4),
+                  borderRadius: BorderRadius.circular(10)),
+              child: TextField(
+                style: Theme.of(context).textTheme.labelMedium,
+                decoration: InputDecoration(border: InputBorder.none),
+                controller: controller,
+                keyboardType: TextInputType.number,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -245,13 +258,13 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           child: ListView(
             controller: scrollController,
             children: [
-              labelFieldsBuilder(totalSoldWeight, 'Total Sold Weight'),
+              labelFieldsBuilder(totalSoldWeight, 'Total Sold Weight(KG)'),
               Divider(),
-              labelFieldsBuilder(totalSoldBirds, 'Total Sold Bird'),
+              labelFieldsBuilder(totalSoldBirds, 'Total Sold Bird(Pcs)'),
               Divider(),
-              labelFieldsBuilder(totalPlacedChicks, 'Total Placed Chicks'),
+              labelFieldsBuilder(totalPlacedChicks, 'Total Placed Chicks(Pcs)'),
               Divider(),
-              labelFieldsBuilder(totalFeedConsumed, 'Total Feed Consumed'),
+              labelFieldsBuilder(totalFeedConsumed, 'Total Feed Consumed(KG)'),
               Divider(),
               labelFieldsBuilder(expectedFCR, 'Expected FCR'),
               Divider(),
@@ -316,7 +329,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                           fcr: fcr,
                           cfcr: cfcr,
                           mortalityCount: mortalityCount,
-                          feedDifference: feedDifference),
+                          feedDifference: feedDifference,
+                          idealFeedConsumption: idealFeedConsumption),
                       showFullDetails: widget.showFullCalculator,
                       saveDataEnabled: true,
                     )

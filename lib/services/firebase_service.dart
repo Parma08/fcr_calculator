@@ -55,6 +55,8 @@ Future<String> getStoredDataFromDB() async {
         int age = chickSellDate.difference(chickPlacementDate).inDays;
         double feedDifference = calculateFeedDifference(
             expectedFCR, totalSoldWeight, totalFeedConsumed);
+        double idealFeedConsumption =
+            calculateIdealFeedConsumption(expectedFCR, totalSoldWeight);
         setCalculationHistory(CalculationDisplayModal(
             id: documentSnapshot.id,
             inputs: InputsModal(
@@ -74,6 +76,7 @@ Future<String> getStoredDataFromDB() async {
             fcr: fcr,
             cfcr: cfcr,
             feedDifference: feedDifference,
+            idealFeedConsumption: idealFeedConsumption,
             mortalityCount: mortalityCount));
       }
     });

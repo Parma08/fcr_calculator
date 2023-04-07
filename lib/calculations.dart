@@ -27,6 +27,11 @@ double calculateCFCR(double averageWeight, double fcr) {
   return cFCR;
 }
 
+double calculateIdealFeedConsumption(
+    double expectedFCR, double totalSoldWeight) {
+  return expectedFCR * totalSoldWeight;
+}
+
 double calculateFeedDifference(
     double expectedFCR, double totalSoldWeight, double totalConsumedFeed) {
   double feedDifference = totalConsumedFeed - (expectedFCR * totalSoldWeight);

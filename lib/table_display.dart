@@ -18,6 +18,31 @@ class TableDisplay extends StatelessWidget {
     required this.saveDataEnabled,
   });
 
+  // Color selectColorBasedOnLogic(String key, num value, double? expectedFCR) {
+  //   switch (key) {
+  //     case 'Feed Difference(KG)':
+  //       if (value < 0) {
+  //         return Colors.green;
+  //       } else {
+  //         return Colors.red;
+  //       }
+  //     case 'FCR':
+  //       if (value <= expectedFCR!) {
+  //         return Colors.green;
+  //       } else {
+  //         return Colors.red;
+  //       }
+  //     case 'Feed Difference(KG)':
+  //       if (value <= 1.5) {
+  //         return Colors.green;
+  //       } else {
+  //         return Colors.red;
+  //       }
+  //     default:
+  //       return Colors.black;
+  //   }
+  // }
+
   saveData(BuildContext context) async {
     var status = await setCalculationHistory(calculationData);
     if (status == 'success') {
@@ -25,10 +50,6 @@ class TableDisplay extends StatelessWidget {
     } else {
       showErrorDialog(context, status);
     }
-    // Future.delayed(Duration(seconds: 2), () {
-    //   Navigator.of(context).pop();
-    //   Navigator.of(context).pop();
-    // });
   }
 
   Widget showCalculatedData(BuildContext context, String title, dynamic value) {
@@ -91,24 +112,30 @@ class TableDisplay extends StatelessWidget {
       children: [
         showCalculatedData(context, 'Total Sold Weight(KG)',
             calculationData.inputs.totalSoldWeight),
-        showCalculatedData(
-            context, 'Total Sold Bird', calculationData.inputs.totalSoldBird),
-        showCalculatedData(context, 'Total Placed Chicks',
+        showCalculatedData(context, 'Total Sold Bird(Pcs)',
+            calculationData.inputs.totalSoldBird),
+        showCalculatedData(context, 'Total Placed Chicks(PCs)',
             calculationData.inputs.totalPlacedChicks),
         showCalculatedData(context, 'Total Feed Consumed(KG)',
             calculationData.inputs.totalFeedConsumed),
-        showCalculatedData(context, 'Average weight',
+        showCalculatedData(context, 'Average weight(KG)',
             calculationData.averageWeight.toStringAsFixed(2)),
         showCalculatedData(context, 'Livability %',
             calculationData.livability.toStringAsFixed(2)),
         showCalculatedData(context, 'Mortality %',
             calculationData.mortality.toStringAsFixed(2)),
-        showCalculatedData(
-            context, 'Mortality Count', calculationData.mortalityCount.ceil()),
+        showCalculatedData(context, 'Mortality Count(PCs)',
+            calculationData.mortalityCount.ceil()),
         showCalculatedData(context, 'Expected FCR',
             calculationData.inputs.expectedFCR.toStringAsFixed(2)),
-        showCalculatedData(context, 'Feed Difference(KG)',
-            calculationData.feedDifference.toStringAsFixed(2)),
+        showCalculatedData(context, 'Ideal Feed Consumption(KG)',
+            calculationData.idealFeedConsumption.toStringAsFixed(2)),
+        showCalculatedData(
+            context,
+            'Feed Difference(KG)',
+            calculationData.feedDifference <= 0
+                ? calculationData.feedDifference.toStringAsFixed(2)
+                : ('+' + calculationData.feedDifference.toStringAsFixed(2))),
         showCalculatedData(
             context, 'FCR', calculationData.fcr.toStringAsFixed(2)),
         showCalculatedData(
@@ -118,7 +145,7 @@ class TableDisplay extends StatelessWidget {
             children: [
               showCalculatedData(
                   context, 'Farmer Name', calculationData.inputs.farmerName),
-              showCalculatedData(context, 'Age', calculationData.age),
+              showCalculatedData(context, 'Age(Days)', calculationData.age),
               showCalculatedData(
                   context, 'Feed Name', calculationData.inputs.feedName),
               showCalculatedData(

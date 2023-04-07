@@ -64,6 +64,8 @@ void generatePDF(CalculationDisplayModal pdfInfo) async {
                     pdfInfo.mortalityCount.ceil().toString()),
                 tableRowBuilder('Expected FCR',
                     pdfInfo.inputs.expectedFCR.toStringAsFixed(2)),
+                tableRowBuilder('Ideal Feed Consumption(KG)',
+                    pdfInfo.idealFeedConsumption.toStringAsFixed(2)),
                 tableRowBuilder('Feed Difference',
                     pdfInfo.feedDifference.toStringAsFixed(2)),
                 tableRowBuilder('FCR', pdfInfo.fcr.toStringAsFixed(2)),

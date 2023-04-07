@@ -8,6 +8,7 @@ class CalculationDisplayModal {
   double cfcr;
   double mortalityCount;
   int age;
+  double idealFeedConsumption;
   double feedDifference;
 
   CalculationDisplayModal(
@@ -20,6 +21,7 @@ class CalculationDisplayModal {
       required this.cfcr,
       required this.mortalityCount,
       required this.age,
+      required this.idealFeedConsumption,
       required this.feedDifference}) {}
 }
 
