@@ -96,7 +96,7 @@ void generatePDF(CalculationDisplayModal pdfInfo) async {
                   Center(child: (Text('Chick Sell Date'))),
                   Center(
                       child: (Text(DateFormat.yMMMEd()
-                          .format(pdfInfo.inputs.chickPlacementDate))))
+                          .format(pdfInfo.inputs.chickSellDate))))
                 ]),
               ]))
         ]);

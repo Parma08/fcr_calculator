@@ -45,10 +45,18 @@ class InformationScreen extends StatelessWidget {
       ),
       body: Container(
         margin: EdgeInsets.only(top: 20),
-        child: TableDisplay(
-            calculationData: calculationDisplayInformation,
-            showFullDetails: true,
-            saveDataEnabled: false),
+        height: MediaQuery.of(context).size.height -
+            (AppBar().preferredSize.height +
+                MediaQuery.of(context).padding.top),
+        width: MediaQuery.of(context).size.width,
+        child: ListView(
+          children: [
+            TableDisplay(
+                calculationData: calculationDisplayInformation,
+                showFullDetails: true,
+                saveDataEnabled: false),
+          ],
+        ),
       ),
     );
   }

@@ -53,7 +53,9 @@ class TableDisplay extends StatelessWidget {
                 height: constraints.maxHeight,
                 width: constraints.maxWidth * 0.5,
                 decoration: BoxDecoration(
-                    color: (title == 'FCR' || title == 'CFCR')
+                    color: (title == 'FCR' ||
+                            title == 'CFCR' ||
+                            title == 'Feed Difference(KG)')
                         ? Color.fromRGBO(68, 138, 255, 0.4)
                         : Colors.white,
                     border: Border(
@@ -62,7 +64,9 @@ class TableDisplay extends StatelessWidget {
                     Text(title, style: Theme.of(context).textTheme.labelMedium),
               ),
               Container(
-                color: (title == 'FCR' || title == 'CFCR')
+                color: (title == 'FCR' ||
+                        title == 'CFCR' ||
+                        title == 'Feed Difference(KG)')
                     ? Color.fromRGBO(68, 138, 255, 0.4)
                     : Colors.white,
                 padding: EdgeInsets.symmetric(horizontal: 5),
@@ -101,6 +105,10 @@ class TableDisplay extends StatelessWidget {
             calculationData.mortality.toStringAsFixed(2)),
         showCalculatedData(
             context, 'Mortality Count', calculationData.mortalityCount.ceil()),
+        showCalculatedData(context, 'Expected FCR',
+            calculationData.inputs.expectedFCR.toStringAsFixed(2)),
+        showCalculatedData(context, 'Feed Difference(KG)',
+            calculationData.feedDifference.toStringAsFixed(2)),
         showCalculatedData(
             context, 'FCR', calculationData.fcr.toStringAsFixed(2)),
         showCalculatedData(

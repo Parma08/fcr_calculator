@@ -35,12 +35,12 @@ Future<String> getStoredDataFromDB() async {
         int totalSoldBird = documentData['totalSoldBird'];
         int totalPlacedChicks = documentData['totalPlacedChicks'];
         double totalFeedConsumed = documentData['totalFeedConsumed'];
+        double expectedFCR = documentData['expectedFCR'];
         DateTime chickPlacementDate =
             documentData['chickenPlacementDate'].toDate();
         DateTime chickSellDate = documentData['chickenSellDate'].toDate();
         String feedName = documentData['feedName'];
         String farmerName = documentData['farmerName'];
-        print("ERRRRRROR ${(documentData['totalSoldWeight'])}");
 
         double averageWeight =
             calculateAverageWeight(totalSoldWeight, totalSoldBird);
@@ -51,8 +51,10 @@ Future<String> getStoredDataFromDB() async {
         double fcr = calculateFCR(totalFeedConsumed, totalSoldWeight);
         double cfcr = calculateCFCR(averageWeight, fcr);
         double mortalityCount = ((totalPlacedChicks / 100) * mortality);
-        int age = chickSellDate.difference(chickPlacementDate).inDays;
 
+        int age = chickSellDate.difference(chickPlacementDate).inDays;
+        double feedDifference = calculateFeedDifference(
+            expectedFCR, totalSoldWeight, totalFeedConsumed);
         setCalculationHistory(CalculationDisplayModal(
             id: documentSnapshot.id,
             inputs: InputsModal(
@@ -63,6 +65,7 @@ Future<String> getStoredDataFromDB() async {
                 chickPlacementDate: chickPlacementDate,
                 chickSellDate: chickSellDate,
                 farmerName: farmerName,
+                expectedFCR: expectedFCR,
                 feedName: feedName),
             averageWeight: averageWeight,
             age: age,
@@ -70,6 +73,7 @@ Future<String> getStoredDataFromDB() async {
             mortality: mortality,
             fcr: fcr,
             cfcr: cfcr,
+            feedDifference: feedDifference,
             mortalityCount: mortalityCount));
       }
     });

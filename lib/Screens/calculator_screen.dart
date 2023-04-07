@@ -16,11 +16,13 @@ class CalculatorScreen extends StatefulWidget {
 }
 
 class _CalculatorScreenState extends State<CalculatorScreen> {
+  final myFocusNode = FocusScopeNode();
   TextEditingController totalSoldWeight = TextEditingController();
   TextEditingController totalSoldBirds = TextEditingController();
   TextEditingController totalPlacedChicks = TextEditingController();
 
   TextEditingController totalFeedConsumed = TextEditingController();
+  TextEditingController expectedFCR = TextEditingController();
   TextEditingController farmerName = TextEditingController();
   TextEditingController feedName = TextEditingController();
   TextEditingController chickPlacementDateController = TextEditingController();
@@ -37,12 +39,29 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   bool showValues = false;
   double mortalityCount = 0;
   int age = 0;
+  double feedDifference = 0;
+
+  final scrollController = ScrollController();
+
+  void _scrollDown() {
+    scrollController.animateTo(
+      scrollController.offset + (MediaQuery.of(context).size.height * 0.5),
+      duration: Duration(milliseconds: 500),
+      curve: Curves.easeOut,
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    myFocusNode.dispose();
+  }
 
   fieldReset() {
     totalSoldWeight = TextEditingController();
     totalSoldBirds = TextEditingController();
     totalPlacedChicks = TextEditingController();
-
+    expectedFCR = TextEditingController();
     totalFeedConsumed = TextEditingController();
     farmerName = TextEditingController();
     feedName = TextEditingController();
@@ -53,6 +72,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     livability = 0;
     mortality = 0;
     fcr = 0;
+
+    feedDifference = 0;
     cfcr = 0;
     showValues = false;
     mortalityCount = 0;
@@ -60,12 +81,6 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   }
 
   doCalculations() {
-    // if (showValues) {
-    //   setState(() {
-    //     fieldReset();
-    //   });
-    //   return;
-    // }
     if (widget.showFullCalculator) {
       if (farmerName.text.isEmpty ||
           feedName.text.isEmpty ||
@@ -80,7 +95,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         totalSoldWeight: totalSoldWeight,
         totalSoldBird: totalSoldBirds,
         totalPlacedChicks: totalPlacedChicks,
-        totalFeedConsumed: totalFeedConsumed);
+        totalFeedConsumed: totalFeedConsumed,
+        expectedFCR: expectedFCR);
     if (isInputValid != 'success') {
       showErrorDialog(context, isInputValid);
       return;
@@ -90,6 +106,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     int totalSoldBirdValue = int.parse(totalSoldBirds.text);
     int totalPlacedChicksValue = int.parse(totalPlacedChicks.text);
     double totalFeedConsumedValue = double.parse(totalFeedConsumed.text);
+    double expectedFCRValue = double.parse(expectedFCR.text);
 
     avgWeight =
         calculateAverageWeight(totalSoldWeightValue, totalSoldBirdValue);
@@ -102,6 +119,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
 
     mortalityCount = (totalPlacedChicksValue / 100) * mortality;
     age = chickSellDate.difference(chickPlacementDate).inDays;
+    feedDifference = calculateFeedDifference(
+        expectedFCRValue, totalSoldWeightValue, totalFeedConsumedValue);
 
     setState(() {
       showValues = true;
@@ -221,78 +240,89 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         height: MediaQuery.of(context).size.height -
             (AppBar().preferredSize.height +
                 MediaQuery.of(context).padding.top),
-        child: ListView(
-          children: [
-            labelFieldsBuilder(totalSoldWeight, 'Total Sold Weight'),
-            Divider(),
-            labelFieldsBuilder(totalSoldBirds, 'Total Sold Bird'),
-            Divider(),
-            labelFieldsBuilder(totalPlacedChicks, 'Total Placed Chicks'),
-            Divider(),
-            labelFieldsBuilder(totalFeedConsumed, 'Total Feed Consumed'),
-            Divider(),
-            widget.showFullCalculator
-                ? Column(
-                    children: [
-                      inputTextFieldBuilder('Farmer Name', farmerName),
-                      Divider(),
-                      inputTextFieldBuilder('Feed Name', feedName),
-                      Divider(),
-                      datetimeFieldBuilder('Chick Placement Date',
-                          chickPlacementDateController, 'placementDate'),
-                      Divider(),
-                      datetimeFieldBuilder('Chick Sell Date',
-                          chickSellDateController, 'sellDate'),
-                    ],
-                  )
-                : SizedBox(),
-            GestureDetector(
-              onTap: () {
-                doCalculations();
-              },
-              child: Center(
-                child: Container(
-                    margin: EdgeInsets.symmetric(vertical: 20),
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    height: 40,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
-                        borderRadius: BorderRadius.circular(100)),
-                    child: Text(
-                      'Calculate FCR',
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
-                    )),
+        child: FocusScope(
+          node: myFocusNode,
+          child: ListView(
+            controller: scrollController,
+            children: [
+              labelFieldsBuilder(totalSoldWeight, 'Total Sold Weight'),
+              Divider(),
+              labelFieldsBuilder(totalSoldBirds, 'Total Sold Bird'),
+              Divider(),
+              labelFieldsBuilder(totalPlacedChicks, 'Total Placed Chicks'),
+              Divider(),
+              labelFieldsBuilder(totalFeedConsumed, 'Total Feed Consumed'),
+              Divider(),
+              labelFieldsBuilder(expectedFCR, 'Expected FCR'),
+              Divider(),
+              widget.showFullCalculator
+                  ? Column(
+                      children: [
+                        inputTextFieldBuilder('Farmer Name', farmerName),
+                        Divider(),
+                        inputTextFieldBuilder('Feed Name', feedName),
+                        Divider(),
+                        datetimeFieldBuilder('Chick Placement Date',
+                            chickPlacementDateController, 'placementDate'),
+                        Divider(),
+                        datetimeFieldBuilder('Chick Sell Date',
+                            chickSellDateController, 'sellDate'),
+                      ],
+                    )
+                  : SizedBox(),
+              GestureDetector(
+                onTap: () {
+                  myFocusNode.unfocus();
+                  _scrollDown();
+                  doCalculations();
+                },
+                child: Center(
+                  child: Container(
+                      margin: EdgeInsets.symmetric(vertical: 20),
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      height: 40,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          borderRadius: BorderRadius.circular(100)),
+                      child: Text(
+                        'Calculate FCR',
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      )),
+                ),
               ),
-            ),
-            showValues
-                ? TableDisplay(
-                    calculationData: CalculationDisplayModal(
-                        id: Uuid().v1(),
-                        inputs: InputsModal(
-                            totalSoldWeight: double.parse(totalSoldWeight.text),
-                            totalSoldBird: int.parse(totalSoldBirds.text),
-                            totalPlacedChicks:
-                                int.parse(totalPlacedChicks.text),
-                            totalFeedConsumed:
-                                double.parse(totalFeedConsumed.text),
-                            farmerName: farmerName.text,
-                            feedName: feedName.text,
-                            chickPlacementDate: chickPlacementDate,
-                            chickSellDate: chickSellDate),
-                        age: age,
-                        averageWeight: avgWeight,
-                        livability: livability,
-                        mortality: mortality,
-                        fcr: fcr,
-                        cfcr: cfcr,
-                        mortalityCount: mortalityCount),
-                    showFullDetails: widget.showFullCalculator,
-                    saveDataEnabled: true,
-                  )
-                : SizedBox(),
-          ],
+              showValues
+                  ? TableDisplay(
+                      calculationData: CalculationDisplayModal(
+                          id: Uuid().v1(),
+                          inputs: InputsModal(
+                              totalSoldWeight:
+                                  double.parse(totalSoldWeight.text),
+                              totalSoldBird: int.parse(totalSoldBirds.text),
+                              totalPlacedChicks:
+                                  int.parse(totalPlacedChicks.text),
+                              totalFeedConsumed:
+                                  double.parse(totalFeedConsumed.text),
+                              farmerName: farmerName.text,
+                              feedName: feedName.text,
+                              chickPlacementDate: chickPlacementDate,
+                              chickSellDate: chickSellDate,
+                              expectedFCR: double.parse(expectedFCR.text)),
+                          age: age,
+                          averageWeight: avgWeight,
+                          livability: livability,
+                          mortality: mortality,
+                          fcr: fcr,
+                          cfcr: cfcr,
+                          mortalityCount: mortalityCount,
+                          feedDifference: feedDifference),
+                      showFullDetails: widget.showFullCalculator,
+                      saveDataEnabled: true,
+                    )
+                  : SizedBox(),
+            ],
+          ),
         ),
       ),
     );

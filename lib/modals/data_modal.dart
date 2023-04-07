@@ -8,18 +8,19 @@ class CalculationDisplayModal {
   double cfcr;
   double mortalityCount;
   int age;
+  double feedDifference;
 
-  CalculationDisplayModal({
-    required this.id,
-    required this.inputs,
-    required this.averageWeight,
-    required this.livability,
-    required this.mortality,
-    required this.fcr,
-    required this.cfcr,
-    required this.mortalityCount,
-    required this.age,
-  }) {}
+  CalculationDisplayModal(
+      {required this.id,
+      required this.inputs,
+      required this.averageWeight,
+      required this.livability,
+      required this.mortality,
+      required this.fcr,
+      required this.cfcr,
+      required this.mortalityCount,
+      required this.age,
+      required this.feedDifference}) {}
 }
 
 class InputsModal {
@@ -31,6 +32,7 @@ class InputsModal {
   String? feedName;
   DateTime chickPlacementDate;
   DateTime chickSellDate;
+  double expectedFCR;
 
   InputsModal(
       {required this.totalSoldWeight,
@@ -40,6 +42,7 @@ class InputsModal {
       this.farmerName,
       this.feedName,
       required this.chickPlacementDate,
+      required this.expectedFCR,
       required this.chickSellDate});
 }
 

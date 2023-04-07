@@ -1,5 +1,17 @@
 import 'package:flutter/material.dart';
 
+double getFontSize(BuildContext context, double factor) {
+  final mediaQuery = MediaQuery.of(context);
+  final textScaleFactor = mediaQuery.textScaleFactor;
+  final screenWidth = mediaQuery.size.width;
+  final screenHeight = mediaQuery.size.height;
+  final smallestDimension =
+      screenWidth > screenHeight ? screenHeight : screenWidth;
+  final fontSize = smallestDimension * 0.035 * textScaleFactor * factor;
+
+  return fontSize;
+}
+
 void showErrorDialog(BuildContext context, String message) {
   showDialog(
       context: context,

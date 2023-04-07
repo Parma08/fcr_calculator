@@ -1,6 +1,7 @@
 import 'package:fcr_calculator/Screens/calculator_screen.dart';
 import 'package:fcr_calculator/services/firebase_service.dart';
 import 'package:fcr_calculator/tabs_page.dart';
+import 'package:fcr_calculator/utils/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';

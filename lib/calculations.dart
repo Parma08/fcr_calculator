@@ -27,26 +27,36 @@ double calculateCFCR(double averageWeight, double fcr) {
   return cFCR;
 }
 
+double calculateFeedDifference(
+    double expectedFCR, double totalSoldWeight, double totalConsumedFeed) {
+  double feedDifference = totalConsumedFeed - (expectedFCR * totalSoldWeight);
+  return feedDifference;
+}
+
 String numberInputValidation(
     {required TextEditingController totalSoldWeight,
     required TextEditingController totalSoldBird,
     required TextEditingController totalPlacedChicks,
-    required TextEditingController totalFeedConsumed}) {
+    required TextEditingController totalFeedConsumed,
+    required TextEditingController expectedFCR}) {
   if (totalSoldWeight.text.isEmpty ||
       totalSoldBird.text.isEmpty ||
       totalPlacedChicks.text.isEmpty ||
-      totalFeedConsumed.text.isEmpty) {
+      totalFeedConsumed.text.isEmpty ||
+      expectedFCR.text.isEmpty) {
     return 'Kuch chuut gaya h shayad';
   }
   if ((num.tryParse(totalSoldWeight.text) == null) ||
       (num.tryParse(totalSoldBird.text) == null) ||
       (num.tryParse(totalPlacedChicks.text) == null) ||
-      (num.tryParse(totalFeedConsumed.text) == null)) {
+      (num.tryParse(totalFeedConsumed.text) == null) ||
+      num.tryParse(expectedFCR.text) == null) {
     return 'Kahi number galat hai';
   } else if (num.parse(totalSoldWeight.text) < 0 ||
       num.parse(totalSoldBird.text) < 0 ||
       num.parse(totalPlacedChicks.text) < 0 ||
-      num.parse(totalFeedConsumed.text) < 0) {
+      num.parse(totalFeedConsumed.text) < 0 ||
+      num.parse(expectedFCR.text) < 0) {
     return 'Value negative nahi ho sakta';
   }
   return 'success';
