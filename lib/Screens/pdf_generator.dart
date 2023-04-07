@@ -13,91 +13,72 @@ import 'package:uuid/uuid.dart';
 void generatePDF(CalculationDisplayModal pdfInfo) async {
   final doc = Document();
 
+  TableRow tableRowBuilder(String key, String value) {
+    return TableRow(decoration: BoxDecoration(), children: [
+      Center(
+          child: (Padding(
+              padding: EdgeInsets.all(5),
+              child: Text(key,
+                  style:
+                      TextStyle(fontSize: 16, fontWeight: FontWeight.bold))))),
+      Center(
+          child: (Padding(
+              padding: EdgeInsets.all(5),
+              child: Text(value,
+                  style:
+                      TextStyle(fontSize: 16, fontWeight: FontWeight.bold))))),
+    ]);
+  }
+
   doc.addPage(Page(
       pageFormat: PdfPageFormat.a4,
       build: (Context context) {
         return Column(children: [
           Center(
               child: Text('FCR CALCULATION',
-                  style: TextStyle(fontWeight: FontWeight.bold))),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      decoration: TextDecoration.underline))),
+          SizedBox(height: 20),
           Center(
               child: Table(
                   defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                   border: TableBorder.all(width: 1.0),
                   children: [
-                TableRow(decoration: BoxDecoration(), children: [
-                  Center(child: (Text('Total Sold Weight(KG)'))),
-                  Center(
-                      child: (Text(pdfInfo.inputs.totalSoldWeight.toString())))
-                ]),
-                TableRow(children: [
-                  Center(child: (Text('Total Sold Bird(Pcs)'))),
-                  Center(child: (Text(pdfInfo.inputs.totalSoldBird.toString())))
-                ]),
-                TableRow(children: [
-                  Center(child: (Text('Total Placed Chicks(Pcs)'))),
-                  Center(
-                      child:
-                          (Text(pdfInfo.inputs.totalPlacedChicks.toString())))
-                ]),
-                TableRow(children: [
-                  Center(child: (Text('Total Feed Consumed(KG)'))),
-                  Center(
-                      child:
-                          (Text(pdfInfo.inputs.totalFeedConsumed.toString())))
-                ]),
-                TableRow(children: [
-                  Center(child: (Text('Average Weight(KG)'))),
-                  Center(child: (Text(pdfInfo.averageWeight.toString())))
-                ]),
-                TableRow(children: [
-                  Center(child: (Text('Livability %'))),
-                  Center(child: (Text(pdfInfo.livability.toString())))
-                ]),
-                TableRow(children: [
-                  Center(child: (Text('Mortality %'))),
-                  Center(child: (Text(pdfInfo.mortality.toString())))
-                ]),
-                TableRow(children: [
-                  Center(child: (Text('Mortality Count(Pcs)'))),
-                  Center(child: (Text(pdfInfo.mortalityCount.toString())))
-                ]),
-                TableRow(children: [
-                  Center(child: (Text('Average Weight(KG)'))),
-                  Center(child: (Text(pdfInfo.averageWeight.toString())))
-                ]),
-                TableRow(children: [
-                  Center(child: (Text('FCR'))),
-                  Center(child: (Text(pdfInfo.fcr.toString())))
-                ]),
-                TableRow(children: [
-                  Center(child: (Text('CFCR'))),
-                  Center(child: (Text(pdfInfo.cfcr.toString())))
-                ]),
-                TableRow(children: [
-                  Center(child: (Text('Age'))),
-                  Center(child: (Text(pdfInfo.age.toString())))
-                ]),
-                TableRow(children: [
-                  Center(child: (Text('Farmer Name'))),
-                  Center(child: (Text(pdfInfo.inputs.farmerName.toString())))
-                ]),
-                TableRow(children: [
-                  Center(child: (Text('Feed Name'))),
-                  Center(child: (Text(pdfInfo.inputs.feedName.toString())))
-                ]),
-                TableRow(children: [
-                  Center(child: (Text('Chick Placement Date'))),
-                  Center(
-                      child: (Text(DateFormat.yMMMEd()
-                          .format(pdfInfo.inputs.chickPlacementDate))))
-                ]),
-                TableRow(children: [
-                  Center(child: (Text('Chick Sell Date'))),
-                  Center(
-                      child: (Text(DateFormat.yMMMEd()
-                          .format(pdfInfo.inputs.chickSellDate))))
-                ]),
+                tableRowBuilder('Total Sold Weight(KG)',
+                    pdfInfo.inputs.totalSoldWeight.toStringAsFixed(2)),
+                tableRowBuilder('Total Sold Bird(Pcs)',
+                    pdfInfo.inputs.totalSoldBird.toString()),
+                tableRowBuilder('Total Placed Chicks(Pcs)',
+                    pdfInfo.inputs.totalPlacedChicks.toString()),
+                tableRowBuilder('Total Feed Consumed(KG)',
+                    pdfInfo.inputs.totalFeedConsumed.toStringAsFixed(2)),
+                tableRowBuilder('Average Weight(KG)',
+                    pdfInfo.averageWeight.toStringAsFixed(2)),
+                tableRowBuilder(
+                    'Livability %', pdfInfo.livability.toStringAsFixed(2)),
+                tableRowBuilder(
+                    'Mortality %', pdfInfo.mortality.toStringAsFixed(2)),
+                tableRowBuilder('Mortality Count(Pcs)',
+                    pdfInfo.mortalityCount.ceil().toString()),
+                tableRowBuilder('Expected FCR',
+                    pdfInfo.inputs.expectedFCR.toStringAsFixed(2)),
+                tableRowBuilder('Feed Difference',
+                    pdfInfo.feedDifference.toStringAsFixed(2)),
+                tableRowBuilder('FCR', pdfInfo.fcr.toStringAsFixed(2)),
+                tableRowBuilder('CFCR', pdfInfo.cfcr.toStringAsFixed(2)),
+                tableRowBuilder('Age(Days)', pdfInfo.age.toString()),
+                tableRowBuilder(
+                    'Farmer Name', pdfInfo.inputs.farmerName.toString()),
+                tableRowBuilder(
+                    'Feed Name', pdfInfo.inputs.feedName.toString()),
+                tableRowBuilder(
+                    'Chick Placement Date',
+                    DateFormat.yMMMEd()
+                        .format(pdfInfo.inputs.chickPlacementDate)),
+                tableRowBuilder('Chick Sell Date',
+                    DateFormat.yMMMEd().format(pdfInfo.inputs.chickSellDate)),
               ]))
         ]);
       }));
