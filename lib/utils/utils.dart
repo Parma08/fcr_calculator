@@ -168,3 +168,18 @@ Future showDeleteConfirmationModal(BuildContext context, String message) {
         );
       });
 }
+
+void showLoader(BuildContext context) {
+  showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (_) => Dialog(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            alignment: Alignment.center,
+            child: Container(
+                width: 50,
+                height: 100,
+                child: Center(child: CircularProgressIndicator())),
+          ));
+}

@@ -44,10 +44,13 @@ class TableDisplay extends StatelessWidget {
   // }
 
   saveData(BuildContext context) async {
+    showLoader(context);
     var status = await setCalculationHistory(calculationData);
     if (status == 'success') {
+      Navigator.of(context).pop();
       showSuccessDialog(context, 'Ho gaya Save');
     } else {
+      Navigator.of(context).pop();
       showErrorDialog(context, status);
     }
   }
