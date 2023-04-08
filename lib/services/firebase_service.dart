@@ -22,10 +22,10 @@ Future<String> getUserDetailsFromDB() async {
   return 'success';
 }
 
-Future<String> getStoredDataFromDB() async {
+Future<String> getStoredFCRDataFromDB() async {
   try {
     await mainPath
-        .collection('savedData')
+        .collection('savedFCRData')
         .get()
         .then((QuerySnapshot querySnapshot) {
       for (DocumentSnapshot documentSnapshot in querySnapshot.docs) {
@@ -57,9 +57,9 @@ Future<String> getStoredDataFromDB() async {
             expectedFCR, totalSoldWeight, totalFeedConsumed);
         double idealFeedConsumption =
             calculateIdealFeedConsumption(expectedFCR, totalSoldWeight);
-        setCalculationHistory(CalculationDisplayModal(
+        setfcrCalculationHistory(CalculationDisplayModal(
             id: documentSnapshot.id,
-            inputs: InputsModal(
+            inputs: FCRInputsModal(
                 totalSoldWeight: totalSoldWeight,
                 totalSoldBird: totalSoldBird,
                 totalPlacedChicks: totalPlacedChicks,
@@ -91,14 +91,64 @@ Future<String> getStoredDataFromDB() async {
 Future initializeDataFromDB() async {
   var status = await getUserDetailsFromDB();
   if (status == 'success') {
-    status = await getStoredDataFromDB();
+    status = await getStoredFCRDataFromDB();
+    if (status == 'success') {
+      status = await getStoredCostAnalysisDataFromDB();
+    }
   }
   return status;
 }
 
-Future<String> deleteEntryFromDatabase(String id) async {
+Future<String> deleteFCREntryFromDatabase(String id) async {
   try {
-    await mainPath.collection('savedData').doc(id).delete();
+    await mainPath.collection('savedFCRData').doc(id).delete();
+  } on FirebaseException catch (e) {
+    return e.message.toString();
+  }
+  return 'success';
+}
+
+Future<String> getStoredCostAnalysisDataFromDB() async {
+  try {
+    await mainPath
+        .collection('savedCostAnalysisData')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      for (DocumentSnapshot documentSnapshot in querySnapshot.docs) {
+        Map documentData = documentSnapshot.data() as Map;
+
+        double chickCost = documentData['chickCost'];
+        double farmExpenses = documentData['farmExpenses'];
+        double farmerCommision = documentData['farmerCommision'];
+        double labourCost = documentData['labourCost'];
+        double medicineCost = documentData['medicineCost'];
+        double ratePerBag = documentData['ratePerBag'];
+        double totalBirdsSold = documentData['totalBirdsSold'];
+        double totalFeedConsumed = documentData['totalFeedConsumed'];
+        EffectiveBirdCostModal effectiveBirdCost = calculateEffectiveBirdCost(
+            EffecitiveBirdCostInputsModal(
+                totalFeedConsumed: totalFeedConsumed,
+                ratePerBag: ratePerBag,
+                chickCost: chickCost,
+                totalBirdsSold: totalBirdsSold,
+                medicineCost: medicineCost,
+                labourCost: labourCost,
+                farmExpenses: farmExpenses,
+                farmerCommission: farmerCommision));
+        getCostAnalysisHistory.add(effectiveBirdCost);
+      }
+    });
+  } on FirebaseException catch (e) {
+    print('ERROR - ${e.message}');
+    return e.message.toString();
+  }
+
+  return 'success';
+}
+
+Future<String> deleteCostAnalysisEntryFromDatabase(String id) async {
+  try {
+    await mainPath.collection('savedCostAnalysisData').doc(id).delete();
   } on FirebaseException catch (e) {
     return e.message.toString();
   }

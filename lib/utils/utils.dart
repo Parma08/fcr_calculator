@@ -40,6 +40,7 @@ void showErrorDialog(BuildContext context, String message) {
                         message,
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w600),
+                        textAlign: TextAlign.center,
                       ),
                     ],
                   ),
@@ -88,11 +89,10 @@ void showSuccessDialog(BuildContext context, String message) {
                       SizedBox(
                         height: 5,
                       ),
-                      Text(
-                        message,
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w600),
-                      ),
+                      Text(message,
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w600),
+                          textAlign: TextAlign.center),
                     ],
                   ),
                 ],
@@ -139,11 +139,10 @@ Future showDeleteConfirmationModal(BuildContext context, String message) {
                       SizedBox(
                         height: 5,
                       ),
-                      Text(
-                        message,
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w600),
-                      ),
+                      Text(message,
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w600),
+                          textAlign: TextAlign.center),
                     ],
                   ),
                   Row(

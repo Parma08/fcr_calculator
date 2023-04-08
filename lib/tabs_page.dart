@@ -1,5 +1,6 @@
 import 'package:fcr_calculator/Screens/calculator_screen.dart';
 import 'package:fcr_calculator/Screens/history_screen.dart';
+import 'package:fcr_calculator/Screens/per_bird_cost_screen.dart';
 import 'package:fcr_calculator/Screens/profilescreen.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +14,7 @@ class TabsPage extends StatefulWidget {
 class _TabsPageState extends State<TabsPage> {
   List<Widget> tabScreens = [
     CalculatorScreen(),
+    PerBirdCostScreen(),
     HistoryScreen(),
     ProfileScreen()
   ];
@@ -20,30 +22,9 @@ class _TabsPageState extends State<TabsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: index == 1
-          ? Container(
-              height: 65,
-              width: 65,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Theme.of(context).primaryColor,
-              ),
-              child: IconButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-                      return CalculatorScreen(
-                        showFullCalculator: true,
-                      );
-                    }));
-                  },
-                  icon: Icon(
-                    Icons.add,
-                    color: Colors.white,
-                  )),
-            )
-          : SizedBox(),
       bottomNavigationBar: Container(
         child: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
           onTap: (selectedIndex) {
             setState(() {
               index = selectedIndex;
@@ -52,7 +33,9 @@ class _TabsPageState extends State<TabsPage> {
           currentIndex: index,
           items: [
             BottomNavigationBarItem(
-                icon: Icon(Icons.calculate_outlined), label: 'Calculator'),
+                icon: Icon(Icons.calculate_outlined), label: 'FCR'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.money_sharp), label: 'Bird Cost'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.work_history_outlined), label: 'History'),
             BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),

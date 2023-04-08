@@ -258,13 +258,15 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           child: ListView(
             controller: scrollController,
             children: [
-              labelFieldsBuilder(totalSoldWeight, 'Total Sold Weight(KG)'),
+              labelFieldsBuilder(totalSoldWeight, 'Total Sold Weight\n(in KG)'),
               Divider(),
-              labelFieldsBuilder(totalSoldBirds, 'Total Sold Bird(Pcs)'),
+              labelFieldsBuilder(totalSoldBirds, 'Total Sold Bird\n(in Pcs)'),
               Divider(),
-              labelFieldsBuilder(totalPlacedChicks, 'Total Placed Chicks(Pcs)'),
+              labelFieldsBuilder(
+                  totalPlacedChicks, 'Total Placed Chicks\n(in Pcs)'),
               Divider(),
-              labelFieldsBuilder(totalFeedConsumed, 'Total Feed Consumed(KG)'),
+              labelFieldsBuilder(
+                  totalFeedConsumed, 'Total Feed Consumed\n(in KG)'),
               Divider(),
               labelFieldsBuilder(expectedFCR, 'Expected FCR'),
               Divider(),
@@ -306,10 +308,10 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 ),
               ),
               showValues
-                  ? TableDisplay(
+                  ? TableDisplayFCR(
                       calculationData: CalculationDisplayModal(
                           id: Uuid().v1(),
-                          inputs: InputsModal(
+                          inputs: FCRInputsModal(
                               totalSoldWeight:
                                   double.parse(totalSoldWeight.text),
                               totalSoldBird: int.parse(totalSoldBirds.text),

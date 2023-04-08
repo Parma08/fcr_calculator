@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 
 import '../table_display.dart';
 
-class InformationScreen extends StatelessWidget {
-  CalculationDisplayModal calculationDisplayInformation;
-  InformationScreen({required this.calculationDisplayInformation});
+class CostAnalysisInformationScreen extends StatelessWidget {
+  EffectiveBirdCostModal calculationDisplayInformation;
+  CostAnalysisInformationScreen({required this.calculationDisplayInformation});
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +22,13 @@ class InformationScreen extends StatelessWidget {
                   context,
                   'Pakka delete?',
                 );
-                print("VALUEEE = $confirmationData");
                 if (confirmationData == 'delete') {
-                  var status = await deleteEntryFromDatabase(
+                  var status = await deleteCostAnalysisEntryFromDatabase(
                       calculationDisplayInformation.id);
                   if (status == 'success') {
-                    getCalculationHistory.removeWhere((element) =>
+                    print('CONFIRMATION, ${calculationDisplayInformation.id}');
+
+                    getCostAnalysisHistory.removeWhere((element) =>
                         element.id == calculationDisplayInformation.id);
                     Navigator.of(context).pop();
                   } else {
@@ -38,7 +39,7 @@ class InformationScreen extends StatelessWidget {
               icon: Icon(Icons.delete_forever)),
           IconButton(
               onPressed: () {
-                generatePDF(calculationDisplayInformation);
+                generateCostAnalysisPDF(calculationDisplayInformation);
               },
               icon: Icon(Icons.picture_as_pdf_rounded))
         ],
@@ -51,9 +52,8 @@ class InformationScreen extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         child: ListView(
           children: [
-            TableDisplay(
+            TableDisplayCostAnalysis(
                 calculationData: calculationDisplayInformation,
-                showFullDetails: true,
                 saveDataEnabled: false),
           ],
         ),

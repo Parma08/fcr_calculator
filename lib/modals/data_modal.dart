@@ -1,6 +1,6 @@
 class CalculationDisplayModal {
   String id;
-  InputsModal inputs;
+  FCRInputsModal inputs;
   double averageWeight;
   double livability;
   double mortality;
@@ -25,7 +25,7 @@ class CalculationDisplayModal {
       required this.feedDifference}) {}
 }
 
-class InputsModal {
+class FCRInputsModal {
   double totalSoldWeight;
   int totalSoldBird;
   int totalPlacedChicks;
@@ -36,7 +36,7 @@ class InputsModal {
   DateTime chickSellDate;
   double expectedFCR;
 
-  InputsModal(
+  FCRInputsModal(
       {required this.totalSoldWeight,
       required this.totalSoldBird,
       required this.totalPlacedChicks,
@@ -53,4 +53,52 @@ class UserModal {
   String userId;
 
   UserModal({required this.userName, required this.userId});
+}
+
+class EffecitiveBirdCostInputsModal {
+  double totalFeedConsumed;
+  double ratePerBag;
+  double chickCost;
+  double totalBirdsSold;
+  double medicineCost;
+  double labourCost;
+  double farmExpenses;
+  double farmerCommission;
+
+  EffecitiveBirdCostInputsModal({
+    required this.totalFeedConsumed,
+    required this.ratePerBag,
+    required this.chickCost,
+    required this.totalBirdsSold,
+    required this.medicineCost,
+    required this.labourCost,
+    required this.farmExpenses,
+    required this.farmerCommission,
+  });
+}
+
+class EffectiveBirdCostModal {
+  EffecitiveBirdCostInputsModal inputs;
+  String id;
+  double feedExpenses;
+  double birdExpenses;
+  double totalComission;
+  double totalExpenses;
+  double effectivePerBirdCost;
+  double totalBagsConsumed;
+  // double profitLoss;
+  double otherExpenses;
+
+  EffectiveBirdCostModal({
+    required this.id,
+    required this.inputs,
+    required this.totalBagsConsumed,
+    required this.feedExpenses,
+    required this.birdExpenses,
+    required this.totalComission,
+    required this.otherExpenses,
+    required this.totalExpenses,
+    required this.effectivePerBirdCost,
+    // required this.profitLoss,
+  });
 }
