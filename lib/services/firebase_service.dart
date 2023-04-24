@@ -119,7 +119,7 @@ Future<String> getStoredCostAnalysisDataFromDB() async {
 
         double chickCost = documentData['chickCost'];
         double farmExpenses = documentData['farmExpenses'];
-        double farmerCommision = documentData['farmerCommision'];
+        double farmercommission = documentData['farmercommission '];
         double labourCost = documentData['labourCost'];
         double medicineCost = documentData['medicineCost'];
         double ratePerBag = documentData['ratePerBag'];
@@ -134,7 +134,7 @@ Future<String> getStoredCostAnalysisDataFromDB() async {
                 medicineCost: medicineCost,
                 labourCost: labourCost,
                 farmExpenses: farmExpenses,
-                farmerCommission: farmerCommision));
+                farmerCommission: farmercommission));
         getCostAnalysisHistory.add(effectiveBirdCost);
       }
     });

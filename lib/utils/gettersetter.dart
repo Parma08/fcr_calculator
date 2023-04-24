@@ -78,6 +78,20 @@ String getQuickInfo(String item) {
       return 'Please enter the total amount of feed(food) your birds have consumed (in Kilo Grams)';
     case 'Expected FCR':
       return 'Enter your expected FCR (typical good range is between 1.5-1.6), We use it to calculate the feed difference. A negative feed difference means more profits for you, while a positive feed difference means less profits';
+    case 'Rate of 50KG Feed Bag\n(in Rs)':
+      return 'Feed bags typically come in packs of 50KG. Please enter the cost of 1 feed bag';
+    case 'Per Chick Cost\n(in Rs)':
+      return 'Please enter the cost of 1 chick';
+    case 'Total Birds Sold\n(in Pcs)':
+      return 'Please enter total birds you have or you plan to sell';
+    case 'Medicine Cost\n(in Rs)':
+      return 'Poultry farming may require some medical expenses as well. Please enter the cost or you can put 0 in case no medicines are required';
+    case 'Labour Cost\n(in Rs)':
+      return 'Please enter the labour cost if not applicable then you can put 0';
+    case 'Farm Expenses\n(in Rs)':
+      return 'Please enter the farm expenses. Farm expenses includes things like rent,electricity,equipments etc';
+    case 'Farmer Commission \n(Per Bird)':
+      return 'Please enter the per bird Farmer Commission if applicable. You can put 0 if not applicable';
     default:
       return '.';
   }
@@ -105,6 +119,7 @@ List<String> getFCRCalucaltionUnit(String title) {
       title == 'Feed Name' ||
       title == 'Chick Placement Date' ||
       title == 'Chick Sell Date' ||
+      title == 'Expected FCR' ||
       title == 'FCR' ||
       title == 'CFCR') {
     return ['', ''];
@@ -139,7 +154,7 @@ Map<String, dynamic> getCostAnalysisUserInputDataInJSON(
     'medicineCost': inputs.medicineCost,
     'labourCost': inputs.labourCost,
     'farmExpenses': inputs.farmExpenses,
-    'farmerCommision': inputs.farmerCommission,
+    'farmercommission ': inputs.farmerCommission,
   };
 }
 

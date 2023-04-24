@@ -1,3 +1,4 @@
+import 'package:fcr_calculator/Screens/guest_user_screen.dart';
 import 'package:fcr_calculator/Screens/register_screen.dart';
 import 'package:fcr_calculator/services/firebase_service.dart';
 import 'package:fcr_calculator/tabs_page.dart';
@@ -157,6 +158,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 )),
                           ),
                         ),
+                        SizedBox(
+                          height: 20,
+                        ),
                         GestureDetector(
                           onTap: () {
                             Navigator.of(context)
@@ -167,6 +171,26 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Text(
                             'Register',
                             style: TextStyle(
+                                fontSize: 18,
+                                color: Theme.of(context).primaryColor,
+                                fontWeight: FontWeight.w500,
+                                decoration: TextDecoration.underline),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 50,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (_) {
+                              return GuestUserScreen();
+                            }));
+                          },
+                          child: Text(
+                            'Don\'t wanna Login?',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
                                 color: Theme.of(context).primaryColor,
                                 decoration: TextDecoration.underline),
                           ),

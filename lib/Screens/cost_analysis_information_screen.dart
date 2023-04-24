@@ -20,19 +20,17 @@ class CostAnalysisInformationScreen extends StatelessWidget {
               onPressed: () async {
                 final confirmationData = await showDeleteConfirmationModal(
                   context,
-                  'Pakka delete?',
+                  'Are you sure you want to delete?',
                 );
                 if (confirmationData == 'delete') {
                   var status = await deleteCostAnalysisEntryFromDatabase(
                       calculationDisplayInformation.id);
                   if (status == 'success') {
-                    print('CONFIRMATION, ${calculationDisplayInformation.id}');
-
                     getCostAnalysisHistory.removeWhere((element) =>
                         element.id == calculationDisplayInformation.id);
                     Navigator.of(context).pop();
                   } else {
-                    showErrorDialog(context, 'Kuch galat ho gaya');
+                    showErrorDialog(context, status);
                   }
                 }
               },

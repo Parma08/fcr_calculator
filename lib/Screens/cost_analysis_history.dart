@@ -55,9 +55,14 @@ class CostAnalysisTab extends StatelessWidget {
                               blurRadius: 4)
                         ]),
                     margin: EdgeInsets.symmetric(vertical: 10),
-                    child: Text(getCostAnalysisHistory[index]
-                        .effectivePerBirdCost
-                        .toString()),
+                    child: Text(
+                      'Rs ' +
+                          getCostAnalysisHistory[index]
+                              .effectivePerBirdCost
+                              .toStringAsFixed(1) +
+                          '/bird',
+                      style: Theme.of(context).textTheme.labelMedium,
+                    ),
                   ),
                 );
               },

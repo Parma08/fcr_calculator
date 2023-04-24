@@ -24,7 +24,7 @@ class _PerBirdCostScreenState extends State<PerBirdCostScreen> {
   TextEditingController medicineCost = TextEditingController();
   TextEditingController labourCost = TextEditingController();
   TextEditingController farmExpenses = TextEditingController();
-  TextEditingController farmerCommision = TextEditingController();
+  TextEditingController farmercommission = TextEditingController();
   late EffectiveBirdCostModal effectiveBirdCost;
   bool showCalculation = false;
   Widget labelFieldsBuilder(
@@ -80,7 +80,7 @@ class _PerBirdCostScreenState extends State<PerBirdCostScreen> {
         medicineCost: medicineCost,
         labourCost: labourCost,
         farmExpenses: farmExpenses,
-        farmerCommision: farmerCommision);
+        farmercommission: farmercommission);
 
     if (status != 'success') {
       showErrorDialog(context, status);
@@ -96,7 +96,7 @@ class _PerBirdCostScreenState extends State<PerBirdCostScreen> {
         medicineCost: stringToDoubleConvertor(medicineCost.text),
         labourCost: stringToDoubleConvertor(labourCost.text),
         farmExpenses: stringToDoubleConvertor(farmExpenses.text),
-        farmerCommission: stringToDoubleConvertor(farmerCommision.text));
+        farmerCommission: stringToDoubleConvertor(farmercommission.text));
 
     setState(() {
       effectiveBirdCost = calculateEffectiveBirdCost(inputs);
@@ -126,6 +126,14 @@ class _PerBirdCostScreenState extends State<PerBirdCostScreen> {
         elevation: 0,
         title: Text('Cost Analysis'),
         centerTitle: true,
+        actions: [
+          IconButton(
+              onPressed: () {
+                showInfoDialog(context,
+                    'You can hold on each field to get some information about them');
+              },
+              icon: Icon(Icons.info_outline))
+        ],
       ),
       body: Container(
         padding: EdgeInsets.only(top: 15, bottom: 5),
@@ -154,7 +162,7 @@ class _PerBirdCostScreenState extends State<PerBirdCostScreen> {
               labelFieldsBuilder(farmExpenses, 'Farm Expenses\n(in Rs)'),
               Divider(),
               labelFieldsBuilder(
-                  farmerCommision, 'Farmer Commision\n(Per Bird)'),
+                  farmercommission, 'Farmer Commission \n(Per Bird)'),
               Divider(),
               GestureDetector(
                 onTap: () {

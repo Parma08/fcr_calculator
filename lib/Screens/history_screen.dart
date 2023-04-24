@@ -29,7 +29,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               text: 'FCR History',
             ),
             Tab(
-              text: 'Cost History',
+              text: 'Cost Analysis History',
             ),
           ]),
         ),

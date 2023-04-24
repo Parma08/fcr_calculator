@@ -51,20 +51,20 @@ String numberInputValidation(
       totalPlacedChicks.text.isEmpty ||
       totalFeedConsumed.text.isEmpty ||
       expectedFCR.text.isEmpty) {
-    return 'Kuch chuut gaya h shayad';
+    return 'Please fill all the details';
   }
   if ((num.tryParse(totalSoldWeight.text) == null) ||
       (num.tryParse(totalSoldBird.text) == null) ||
       (num.tryParse(totalPlacedChicks.text) == null) ||
       (num.tryParse(totalFeedConsumed.text) == null) ||
       num.tryParse(expectedFCR.text) == null) {
-    return 'Kahi number galat hai';
+    return 'Please make sure you have entered correct information.';
   } else if (num.parse(totalSoldWeight.text) < 0 ||
       num.parse(totalSoldBird.text) < 0 ||
       num.parse(totalPlacedChicks.text) < 0 ||
       num.parse(totalFeedConsumed.text) < 0 ||
       num.parse(expectedFCR.text) < 0) {
-    return 'Value negative nahi ho sakta';
+    return 'Field values cannot be negative';
   }
   return 'success';
 }
@@ -75,11 +75,11 @@ EffectiveBirdCostModal calculateEffectiveBirdCost(
   double totalBagsConsumed = inputs.totalFeedConsumed / 50;
   double totalBirdCost = inputs.chickCost * inputs.totalBirdsSold;
   double totalFeedCost = inputs.ratePerBag * totalBagsConsumed;
-  double totalCommision = inputs.farmerCommission * inputs.totalBirdsSold;
+  double totalcommission = inputs.farmerCommission * inputs.totalBirdsSold;
   double otherExpenses =
       inputs.medicineCost + inputs.labourCost + inputs.farmExpenses;
   double totalExpenses =
-      totalFeedCost + totalBirdCost + otherExpenses + totalCommision;
+      totalFeedCost + totalBirdCost + otherExpenses + totalcommission;
 
   double costPerBird = totalExpenses / inputs.totalBirdsSold;
   EffectiveBirdCostModal effectiveCost = EffectiveBirdCostModal(
@@ -88,7 +88,7 @@ EffectiveBirdCostModal calculateEffectiveBirdCost(
       totalBagsConsumed: totalBagsConsumed,
       feedExpenses: totalFeedCost,
       birdExpenses: totalBirdCost,
-      totalComission: totalCommision,
+      totalComission: totalcommission,
       otherExpenses: otherExpenses,
       totalExpenses: totalExpenses,
       effectivePerBirdCost: costPerBird);
@@ -103,7 +103,7 @@ String CostAnalysisnumberInputValidation({
   required TextEditingController medicineCost,
   required TextEditingController labourCost,
   required TextEditingController farmExpenses,
-  required TextEditingController farmerCommision,
+  required TextEditingController farmercommission,
 }) {
   if (totalFeedConsumed.text.isEmpty ||
       bagRate.text.isEmpty ||
@@ -112,8 +112,8 @@ String CostAnalysisnumberInputValidation({
       medicineCost.text.isEmpty ||
       labourCost.text.isEmpty ||
       farmExpenses.text.isEmpty ||
-      farmerCommision.text.isEmpty) {
-    return 'Kuch chuut gaya h shayad';
+      farmercommission.text.isEmpty) {
+    return 'Please fill all the fields';
   }
   if ((num.tryParse(totalFeedConsumed.text) == null) ||
       (num.tryParse(bagRate.text) == null) ||
@@ -122,8 +122,8 @@ String CostAnalysisnumberInputValidation({
       num.tryParse(medicineCost.text) == null ||
       num.tryParse(labourCost.text) == null ||
       num.tryParse(farmExpenses.text) == null ||
-      num.tryParse(farmerCommision.text) == null) {
-    return 'Kahi number galat hai';
+      num.tryParse(farmercommission.text) == null) {
+    return 'Please make sure you have entered correct information';
   } else if ((num.parse(totalFeedConsumed.text) < 0) ||
       (num.parse(bagRate.text) < 0) ||
       (num.parse(chicksCost.text) < 0) ||
@@ -131,8 +131,8 @@ String CostAnalysisnumberInputValidation({
       num.parse(medicineCost.text) < 0 ||
       num.parse(labourCost.text) < 0 ||
       num.parse(farmExpenses.text) < 0 ||
-      num.parse(farmerCommision.text) < 0) {
-    return 'Value negative nahi ho sakta';
+      num.parse(farmercommission.text) < 0) {
+    return 'Field values cannot be negative';
   }
   return 'success';
 }

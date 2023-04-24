@@ -48,7 +48,7 @@ class TableDisplayFCR extends StatelessWidget {
     var status = await setfcrCalculationHistory(calculationData);
     if (status == 'success') {
       Navigator.of(context).pop();
-      showSuccessDialog(context, 'Ho gaya Save');
+      showSuccessDialog(context, 'FCR Data saved successfully');
     } else {
       Navigator.of(context).pop();
       showErrorDialog(context, status);
@@ -228,7 +228,7 @@ class TableDisplayCostAnalysis extends StatelessWidget {
     var status = await setCostAnalysisHistory(calculationData);
     if (status == 'success') {
       Navigator.of(context).pop();
-      showSuccessDialog(context, 'Ho gaya Save');
+      showSuccessDialog(context, 'Cost Analysis Data Saved Successfully');
     } else {
       Navigator.of(context).pop();
       showErrorDialog(context, status);
@@ -313,7 +313,7 @@ class TableDisplayCostAnalysis extends StatelessWidget {
             calculationData.feedExpenses.toStringAsFixed(2)),
         showCalculatedData(context, 'Total Bird Expenses',
             calculationData.birdExpenses.toStringAsFixed(2)),
-        showCalculatedData(context, 'Total Commision',
+        showCalculatedData(context, 'Total commission ',
             calculationData.totalComission.toStringAsFixed(2)),
         showCalculatedData(context, 'Other Expenses',
             calculationData.otherExpenses.toStringAsFixed(2)),

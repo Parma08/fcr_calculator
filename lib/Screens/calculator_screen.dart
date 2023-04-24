@@ -90,7 +90,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           feedName.text.isEmpty ||
           chickPlacementDateController.text.isEmpty ||
           chickSellDateController.text.isEmpty) {
-        showErrorDialog(context, 'Kuch chut gaya shyd');
+        showErrorDialog(context, 'Please fill all the fields');
         return;
       }
     }
@@ -243,6 +243,14 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                showInfoDialog(context,
+                    'You can hold on each field to get some information about them');
+              },
+              icon: Icon(Icons.info_outline))
+        ],
         elevation: 0,
         title: Text('Calculator'),
         centerTitle: true,

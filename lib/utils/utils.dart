@@ -182,3 +182,54 @@ void showLoader(BuildContext context) {
                 child: Center(child: CircularProgressIndicator())),
           ));
 }
+
+void showInfoDialog(BuildContext context, String message) {
+  showDialog(
+      context: context,
+      builder: (_) {
+        return Dialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          alignment: Alignment.center,
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.white,
+            ),
+            height: 320,
+            child: LayoutBuilder(
+              builder: (_, constraints) => Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(bottom: 20),
+                    height: constraints.maxHeight * 0.5,
+                    child: SvgPicture.asset('assets/images/info.svg'),
+                  ),
+                  Column(
+                    children: [
+                      Text(
+                        'INFORMATION',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.amber),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(message,
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w600),
+                          textAlign: TextAlign.center),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      });
+}

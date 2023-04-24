@@ -20,9 +20,8 @@ class FCRInformationScreen extends StatelessWidget {
               onPressed: () async {
                 final confirmationData = await showDeleteConfirmationModal(
                   context,
-                  'Pakka delete?',
+                  'Are you sure you want to delete?',
                 );
-                print("VALUEEE = $confirmationData");
                 if (confirmationData == 'delete') {
                   var status = await deleteFCREntryFromDatabase(
                       calculationDisplayInformation.id);
@@ -31,7 +30,7 @@ class FCRInformationScreen extends StatelessWidget {
                         element.id == calculationDisplayInformation.id);
                     Navigator.of(context).pop();
                   } else {
-                    showErrorDialog(context, 'Kuch galat ho gaya');
+                    showErrorDialog(context, status);
                   }
                 }
               },
