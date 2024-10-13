@@ -124,7 +124,7 @@ List<String> getFCRCalucaltionUnit(String title) {
       title == 'FCR' ||
       title == 'CFCR') {
     return ['', ''];
-  } else if (title == 'Age') {
+  } else if (title.contains('Age')) {
     return ['', 'days'];
   }
   return ['', 'Kgs'];
@@ -200,7 +200,6 @@ Future<String> setNewFarmRecord(FarmRecordModal farmRecord) async {
   } on FirebaseException catch (e) {
     return e.message.toString();
   }
-  getFarmRecords.removeWhere((element) => element.id == farmRecord.id);
   getFarmRecords.add(farmRecord);
   return 'success';
 }
@@ -220,6 +219,9 @@ Future<String> addInfoToExistingFarmRecord(FarmRecordModal farmRecord) async {
   } on FirebaseException catch (e) {
     return e.message.toString();
   }
+  getFarmRecords.removeWhere((element) => element.id == farmRecord.id);
+  getFarmRecords.add(farmRecord);
+
   return 'success';
 }
 

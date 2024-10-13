@@ -189,6 +189,7 @@ class _AddTodayFarmInfoMoodalSheetUIState
               } else {
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
+                showErrorDialog(context, "Something went wrong");
               }
               widget.additionalFeedController.text = '0';
               widget.totalChicksSoldPiecesController.text = '0';

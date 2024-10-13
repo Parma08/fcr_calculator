@@ -273,6 +273,61 @@ class _FarmInformationScreenState extends State<FarmInformationScreen> {
                   ],
                 ),
               ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  width: 20,
+                ),
+                TextButton(
+                    onPressed: () async {
+                      DateTime? selectedDate = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(2020),
+                          lastDate: DateTime(2040));
+                      if (selectedDate != null) {
+                        final confirmationData =
+                            await showDeleteConfirmationModal(
+                          context,
+                          'Are you sure you want to delete entry for \n ${DateFormat.yMMMd().format(selectedDate)}?',
+                        );
+                        if (confirmationData != "delete") {
+                          return;
+                        } else {
+                          for (var i = 0;
+                              i < widget.farmRecord.farmInformation.length;
+                              i++) {
+                            var info = widget.farmRecord.farmInformation;
+                            if (info[i].date.day == selectedDate.day &&
+                                info[i].date.month == selectedDate.month &&
+                                info[i].date.year == selectedDate.year) {
+                              widget.farmRecord.farmInformation.removeAt(i);
+                              break;
+                            }
+                          }
+                          showLoader(context);
+                          String status = await addInfoToExistingFarmRecord(
+                              widget.farmRecord);
+                          if (status == 'success') {
+                            Navigator.of(context).pop();
+                            showSuccessDialog(context,
+                                'Farm Record for \n ${DateFormat.yMMMd().format(selectedDate)}  has been deleted successfully');
+                            setState(() {});
+                          } else {
+                            showErrorDialog(context, "Something went wrong");
+                          }
+                        }
+                      }
+                    },
+                    child: const Text(
+                      "Delete an Entry",
+                      style: TextStyle(
+                          color: Colors.orangeAccent,
+                          fontWeight: FontWeight.w900),
+                    )),
+              ],
             )
           ],
         ),
