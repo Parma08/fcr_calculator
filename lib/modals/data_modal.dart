@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class CalculationDisplayModal {
   String id;
   FCRInputsModal inputs;
@@ -101,4 +103,36 @@ class EffectiveBirdCostModal {
     required this.effectivePerBirdCost,
     // required this.profitLoss,
   });
+}
+
+class FarmRecordModal {
+  String id;
+  String farmName;
+  int totalChicksPlaced;
+  DateTime chickPlacementDate;
+  List<FarmInformationModal> farmInformation;
+
+  FarmRecordModal(
+      {required this.farmName,
+      required this.id,
+      required this.totalChicksPlaced,
+      required this.chickPlacementDate,
+      required this.farmInformation});
+}
+
+class FarmInformationModal {
+  DateTime date;
+  double feedIntake;
+  int mortality;
+  double additionalFeed;
+  double totalChicksSoldWeight;
+  int totalChicksSoldPieces;
+
+  FarmInformationModal(
+      {required this.date,
+      required this.feedIntake,
+      required this.mortality,
+      required this.totalChicksSoldPieces,
+      required this.totalChicksSoldWeight,
+      required this.additionalFeed});
 }

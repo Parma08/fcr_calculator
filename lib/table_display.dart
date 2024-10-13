@@ -346,3 +346,204 @@ class TableDisplayCostAnalysis extends StatelessWidget {
     );
   }
 }
+
+class TableDisplayFarmInformation extends StatelessWidget {
+  FarmRecordModal farmRecord;
+  TableDisplayFarmInformation({super.key, required this.farmRecord});
+
+  Widget farmInfoTitleBuilder(String title, double width) {
+    return Container(
+      width: width,
+      padding: EdgeInsets.only(left: 10, top: 10, bottom: 10),
+      decoration: BoxDecoration(
+          border: Border(
+              top: BorderSide(width: 1, color: Colors.black),
+              bottom: BorderSide(width: 1, color: Colors.black),
+              left: BorderSide(width: 1, color: Colors.black),
+              right: title.contains("Feed")
+                  ? BorderSide(width: 1, color: Colors.black)
+                  : BorderSide(width: 0))),
+      child: Text(
+        title,
+        maxLines: 1,
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+
+  Widget farmInfoRowBuilder(String value, double width,
+      {bool showRightBorder = false, Color color = Colors.black}) {
+    return Container(
+      width: width,
+      padding: EdgeInsets.only(left: 10, top: 10, bottom: 10),
+      decoration: BoxDecoration(
+          border: Border(
+              right: showRightBorder
+                  ? BorderSide(width: 1, color: Colors.black)
+                  : BorderSide(width: 0),
+              bottom: BorderSide(width: 1, color: Colors.black),
+              left: BorderSide(width: 1, color: Colors.black))),
+      child: Text(
+        value,
+        maxLines: 1,
+        style:
+            TextStyle(fontSize: 16, color: color, fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    double maxWidth = MediaQuery.of(context).size.width;
+    return Container(
+      child: LayoutBuilder(builder: (_, constraints) {
+        return Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                farmInfoTitleBuilder("Date", maxWidth * 0.35),
+                farmInfoTitleBuilder("Mortality", maxWidth * 0.30),
+                farmInfoTitleBuilder("Feed Used", maxWidth * 0.30),
+              ],
+            ),
+            ...farmRecord.farmInformation.map<Widget>((info) {
+              return Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      farmInfoRowBuilder(DateFormat.yMMMd().format(info.date),
+                          maxWidth * 0.35),
+                      farmInfoRowBuilder(
+                          "${info.mortality.toString()} Pcs", maxWidth * 0.30,
+                          color: Colors.red),
+                      farmInfoRowBuilder(
+                          "${info.feedIntake.toString()} Kgs", maxWidth * 0.30,
+                          showRightBorder: true, color: Colors.brown),
+                    ],
+                  ),
+                ],
+              );
+            }).toList(),
+          ],
+        );
+      }),
+    );
+  }
+}
+
+class TableDisplayAdditionalFeedInfo extends StatelessWidget {
+  List<FarmInformationModal> farmInformation;
+  TableDisplayAdditionalFeedInfo({super.key, required this.farmInformation});
+
+  Widget feedInfoRowBuilder(String value, double width,
+      {Color color = Colors.black}) {
+    return Container(
+      width: width,
+      padding: EdgeInsets.only(left: 10, top: 10, bottom: 10),
+      decoration: BoxDecoration(
+          border: Border(
+              top: BorderSide(width: 1, color: Colors.black),
+              bottom: BorderSide(width: 1, color: Colors.black),
+              left: BorderSide(width: 1, color: Colors.black),
+              right: BorderSide(width: 1, color: Colors.black))),
+      child: Text(
+        value,
+        maxLines: 1,
+        style:
+            TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: color),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var maxWidth = MediaQuery.of(context).size.width;
+    return Container(
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              feedInfoRowBuilder("Date", maxWidth * 0.35),
+              feedInfoRowBuilder("Additional Feed", maxWidth * 0.35),
+            ],
+          ),
+          ...farmInformation.map((info) {
+            return info.additionalFeed == 0
+                ? SizedBox()
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      feedInfoRowBuilder(DateFormat.yMMMd().format(info.date),
+                          maxWidth * 0.35),
+                      feedInfoRowBuilder(
+                          "${info.additionalFeed} Kgs", maxWidth * 0.35,
+                          color: Colors.brown),
+                    ],
+                  );
+          }).toList()
+        ],
+      ),
+    );
+  }
+}
+
+class TableDisplaySalesInfo extends StatelessWidget {
+  List<FarmInformationModal> farmInformation;
+  TableDisplaySalesInfo({super.key, required this.farmInformation});
+
+  Widget feedInfoRowBuilder(String value, double width,
+      {Color color = Colors.black}) {
+    return Container(
+      width: width,
+      padding: EdgeInsets.only(left: 10, top: 10, bottom: 10),
+      decoration: BoxDecoration(
+          border: Border(
+              top: BorderSide(width: 1, color: Colors.black),
+              bottom: BorderSide(width: 1, color: Colors.black),
+              left: BorderSide(width: 1, color: Colors.black),
+              right: BorderSide(width: 1, color: Colors.black))),
+      child: Text(
+        value,
+        maxLines: 1,
+        style:
+            TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: color),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var maxWidth = MediaQuery.of(context).size.width;
+    return Container(
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              feedInfoRowBuilder("Date", maxWidth * 0.35),
+              feedInfoRowBuilder("Birds Sold", maxWidth * 0.55)
+            ],
+          ),
+          ...farmInformation.map((info) {
+            return info.additionalFeed == 0
+                ? SizedBox()
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      feedInfoRowBuilder(DateFormat.yMMMd().format(info.date),
+                          maxWidth * 0.35),
+                      feedInfoRowBuilder(
+                          "${info.totalChicksSoldPieces} Pcs / ${info.totalChicksSoldWeight} Kgs",
+                          maxWidth * 0.55,
+                          color: Colors.blueGrey),
+                    ],
+                  );
+          }).toList()
+        ],
+      ),
+    );
+  }
+}

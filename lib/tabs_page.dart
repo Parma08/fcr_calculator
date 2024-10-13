@@ -1,4 +1,5 @@
 import 'package:fcr_calculator/Screens/calculator_screen.dart';
+import 'package:fcr_calculator/Screens/farm_record_screen/farm_record_screen.dart';
 import 'package:fcr_calculator/Screens/history_screen.dart';
 import 'package:fcr_calculator/Screens/per_bird_cost_screen.dart';
 import 'package:fcr_calculator/Screens/profilescreen.dart';
@@ -16,7 +17,8 @@ class _TabsPageState extends State<TabsPage> {
     CalculatorScreen(),
     PerBirdCostScreen(),
     HistoryScreen(),
-    ProfileScreen()
+    FarmRecordScreen(),
+    ProfileScreen(),
   ];
   int index = 0;
   @override
@@ -38,6 +40,8 @@ class _TabsPageState extends State<TabsPage> {
                 icon: Icon(Icons.money_sharp), label: 'Bird Cost'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.work_history_outlined), label: 'History'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.note_add_outlined), label: 'Farm Record'),
             BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
           ],
         ),

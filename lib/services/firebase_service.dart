@@ -95,6 +95,9 @@ Future initializeDataFromDB() async {
     if (status == 'success') {
       status = await getStoredCostAnalysisDataFromDB();
     }
+    if (status == 'success') {
+      status = await getStoredFarmDataFromDB();
+    }
   }
   return status;
 }
@@ -149,6 +152,57 @@ Future<String> getStoredCostAnalysisDataFromDB() async {
 Future<String> deleteCostAnalysisEntryFromDatabase(String id) async {
   try {
     await mainPath.collection('savedCostAnalysisData').doc(id).delete();
+  } on FirebaseException catch (e) {
+    return e.message.toString();
+  }
+  return 'success';
+}
+
+Future<String> getStoredFarmDataFromDB() async {
+  try {
+    await mainPath
+        .collection('savedFarmData')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      for (DocumentSnapshot documentSnapshot in querySnapshot.docs) {
+        Map documentData = documentSnapshot.data() as Map;
+
+        String farmName = documentData['farmName'];
+        String id = documentData['id'];
+        int totalChicksPlaced = documentData['totalChicksPlaced'];
+        List<dynamic> farmInfo = documentData['farmInformation'];
+        DateTime chickPlacementDate =
+            documentData['chickPlacementDate'].toDate();
+        List<FarmInformationModal> farmInformation = [];
+        for (var i = 0; i < farmInfo.length; i++) {
+          farmInformation.add(FarmInformationModal(
+              additionalFeed: farmInfo[i]['additionalFeed'],
+              date: farmInfo[i]['date'].toDate(),
+              feedIntake: farmInfo[i]['feedIntake'],
+              mortality: farmInfo[i]['mortality'],
+              totalChicksSoldPieces: farmInfo[i]['totalChicksSoldPieces'],
+              totalChicksSoldWeight: farmInfo[i]['totalChicksSoldWeight']));
+        }
+        FarmRecordModal farmRecord = FarmRecordModal(
+            farmName: farmName,
+            id: id,
+            totalChicksPlaced: totalChicksPlaced,
+            chickPlacementDate: chickPlacementDate,
+            farmInformation: farmInformation);
+        getFarmRecords.add(farmRecord);
+      }
+    });
+  } on FirebaseException catch (e) {
+    print('ERROR - ${e.message}');
+    return e.message.toString();
+  }
+
+  return 'success';
+}
+
+Future<String> deleteFarmDataRecordFromDatabase(String id) async {
+  try {
+    await mainPath.collection('savedFarmData').doc(id).delete();
   } on FirebaseException catch (e) {
     return e.message.toString();
   }

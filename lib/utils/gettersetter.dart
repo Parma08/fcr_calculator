@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 List<CalculationDisplayModal> fcrCalculationHistory = [];
 List<EffectiveBirdCostModal> costAnalysisHistory = [];
+List<FarmRecordModal> farmRecordsHistory = [];
 double fontSize = 0;
 
 void setFontSize(BuildContext context) {
@@ -160,4 +161,68 @@ Map<String, dynamic> getCostAnalysisUserInputDataInJSON(
 
 List<EffectiveBirdCostModal> get getCostAnalysisHistory {
   return costAnalysisHistory;
+}
+
+Map<String, dynamic> getNewFarmRecordDataInJSON(FarmRecordModal record) {
+  return {
+    'id': record.id,
+    'farmName': record.farmName,
+    'totalChicksPlaced': record.totalChicksPlaced,
+    'chickPlacementDate': Timestamp.fromDate(record.chickPlacementDate),
+    'farmInformation': getFarmInformationInJson(record.farmInformation)
+  };
+}
+
+List<Map<String, dynamic>> getFarmInformationInJson(
+    List<FarmInformationModal> farmInformation) {
+  List<Map<String, dynamic>> listOfFarmInfoInJSON = [];
+  for (var i = 0; i < farmInformation.length; i++) {
+    listOfFarmInfoInJSON.add({
+      'mortality': farmInformation[i].mortality,
+      'feedIntake': farmInformation[i].feedIntake,
+      'date': Timestamp.fromDate(farmInformation[i].date),
+      'additionalFeed': farmInformation[i].additionalFeed,
+      'totalSoldChicksPieces': farmInformation[i].totalChicksSoldPieces,
+      'totalSoldChicksWeight': farmInformation[i].totalChicksSoldWeight
+    });
+  }
+  return listOfFarmInfoInJSON;
+}
+
+Future<String> setNewFarmRecord(FarmRecordModal farmRecord) async {
+  try {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(getUserDetails.userId)
+        .collection('savedFarmData')
+        .doc(farmRecord.id)
+        .set(getNewFarmRecordDataInJSON(farmRecord));
+  } on FirebaseException catch (e) {
+    return e.message.toString();
+  }
+  getFarmRecords.removeWhere((element) => element.id == farmRecord.id);
+  getFarmRecords.add(farmRecord);
+  return 'success';
+}
+
+Future<String> addInfoToExistingFarmRecord(FarmRecordModal farmRecord) async {
+  FarmRecordModal? existingFarmRecord;
+
+  try {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(getUserDetails.userId)
+        .collection('savedFarmData')
+        .doc(farmRecord.id)
+        .update({
+      "farmInformation": getFarmInformationInJson(farmRecord.farmInformation)
+    });
+  } on FirebaseException catch (e) {
+    return e.message.toString();
+  }
+  return 'success';
+}
+
+List<FarmRecordModal> get getFarmRecords {
+  return farmRecordsHistory;
 }
