@@ -182,8 +182,8 @@ List<Map<String, dynamic>> getFarmInformationInJson(
       'feedIntake': farmInformation[i].feedIntake,
       'date': Timestamp.fromDate(farmInformation[i].date),
       'additionalFeed': farmInformation[i].additionalFeed,
-      'totalSoldChicksPieces': farmInformation[i].totalChicksSoldPieces,
-      'totalSoldChicksWeight': farmInformation[i].totalChicksSoldWeight
+      'totalChicksSoldPieces': farmInformation[i].totalChicksSoldPieces,
+      'totalChicksSoldWeight': farmInformation[i].totalChicksSoldWeight
     });
   }
   return listOfFarmInfoInJSON;
