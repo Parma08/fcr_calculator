@@ -9,7 +9,8 @@ class TableDisplayFCR extends StatelessWidget {
   CalculationDisplayModal calculationData;
   bool showFullDetails;
   bool saveDataEnabled;
-  TableDisplayFCR({super.key, 
+  TableDisplayFCR({
+    super.key,
     required this.calculationData,
     required this.showFullDetails,
     required this.saveDataEnabled,
@@ -190,7 +191,8 @@ class TableDisplayFCR extends StatelessWidget {
 class TableDisplayCostAnalysis extends StatelessWidget {
   EffectiveBirdCostModal calculationData;
   bool saveDataEnabled;
-  TableDisplayCostAnalysis({super.key, 
+  TableDisplayCostAnalysis({
+    super.key,
     required this.calculationData,
     required this.saveDataEnabled,
   });
@@ -525,9 +527,9 @@ class TableDisplaySalesInfo extends StatelessWidget {
             ],
           ),
           ...farmInformation.map((info) {
-            return info.additionalFeed == 0
-                ? const SizedBox()
-                : Row(
+            return (info.totalChicksSoldPieces > 0) ||
+                    (info.totalChicksSoldWeight > 0)
+                ? Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       feedInfoRowBuilder(DateFormat.yMMMd().format(info.date),
@@ -537,7 +539,8 @@ class TableDisplaySalesInfo extends StatelessWidget {
                           maxWidth * 0.55,
                           color: Colors.blueGrey),
                     ],
-                  );
+                  )
+                : const SizedBox();
           }).toList()
         ],
       ),
