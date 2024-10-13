@@ -1,4 +1,5 @@
 import 'package:fcr_calculator/Screens/farm_record_screen/farm_information_screen/add_today_farm_info_modal_sheet_ui.dart';
+import 'package:fcr_calculator/Screens/farm_record_screen/farm_information_screen/quick_fcr_calculation_modal_sheet_ui.dart';
 import 'package:fcr_calculator/modals/data_modal.dart';
 import 'package:fcr_calculator/services/firebase_service.dart';
 import 'package:fcr_calculator/table_display.dart';
@@ -36,6 +37,7 @@ class _FarmInformationScreenState extends State<FarmInformationScreen> {
   void initState() {
     doFarmDataCalculations();
     widget.farmRecord.farmInformation.sort((a, b) => a.date.compareTo(b.date));
+    super.initState();
   }
 
   @override
@@ -137,6 +139,22 @@ class _FarmInformationScreenState extends State<FarmInformationScreen> {
       appBar: AppBar(
         elevation: 0,
         actions: [
+          IconButton(
+              onPressed: () {
+                showModalBottomSheet(
+                    context: context,
+                    builder: (_) {
+                      return QuickFCRCalculationModalSheetUI(
+                          totalFeedConsumption: totalFeedConsumed,
+                          totalNumberOfBirds:
+                              (widget.farmRecord.totalChicksPlaced -
+                                  totalChicksSoldPieces));
+                    });
+              },
+              icon: const Text(
+                "FCR",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
+              )),
           IconButton(
               onPressed: () async {
                 final confirmationData = await showDeleteConfirmationModal(
