@@ -1,4 +1,3 @@
-import 'package:fcr_calculator/utils/gettersetter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -11,7 +10,7 @@ void showErrorDialog(BuildContext context, String message) {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           alignment: Alignment.center,
           child: Container(
-            padding: EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.symmetric(vertical: 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: Colors.white,
@@ -23,22 +22,22 @@ void showErrorDialog(BuildContext context, String message) {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                      margin: EdgeInsets.only(bottom: 20),
+                      margin: const EdgeInsets.only(bottom: 20),
                       height: constraints.maxHeight * 0.5,
                       child: SvgPicture.asset('assets/images/error.svg')),
                   Column(
                     children: [
-                      Text('ERROR!',
+                      const Text('ERROR!',
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
                               color: Colors.red)),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       Text(
                         message,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w600),
                         textAlign: TextAlign.center,
                       ),
@@ -61,7 +60,7 @@ void showSuccessDialog(BuildContext context, String message) {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           alignment: Alignment.center,
           child: Container(
-            padding: EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.symmetric(vertical: 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: Colors.white,
@@ -73,24 +72,24 @@ void showSuccessDialog(BuildContext context, String message) {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(bottom: 20),
+                    margin: const EdgeInsets.only(bottom: 20),
                     height: constraints.maxHeight * 0.5,
                     child: Image.asset('assets/images/success.png'),
                   ),
                   Column(
                     children: [
-                      Text(
+                      const Text(
                         'SUCCESS!',
                         style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
                             color: Colors.green),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       Text(message,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w600),
                           textAlign: TextAlign.center),
                     ],
@@ -112,7 +111,7 @@ Future showDeleteConfirmationModal(BuildContext context, String message) {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           alignment: Alignment.center,
           child: Container(
-            padding: EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.symmetric(vertical: 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: Colors.white,
@@ -124,23 +123,23 @@ Future showDeleteConfirmationModal(BuildContext context, String message) {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(bottom: 20),
+                    margin: const EdgeInsets.only(bottom: 20),
                     height: constraints.maxHeight * 0.5,
                     child: SvgPicture.asset(
                         'assets/images/delete_confirmation.svg'),
                   ),
                   Column(
                     children: [
-                      Text('CONFIRMATION!',
+                      const Text('CONFIRMATION!',
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
                               color: Colors.red)),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       Text(message,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w600),
                           textAlign: TextAlign.center),
                     ],
@@ -152,12 +151,12 @@ Future showDeleteConfirmationModal(BuildContext context, String message) {
                           onPressed: () {
                             Navigator.of(context).pop('cancel');
                           },
-                          child: Text('Cancel')),
+                          child: const Text('Cancel')),
                       TextButton(
                           onPressed: () async {
                             Navigator.of(context).pop('delete');
                           },
-                          child: Text('Delete'))
+                          child: const Text('Delete'))
                     ],
                   )
                 ],
@@ -176,7 +175,7 @@ void showLoader(BuildContext context) {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             alignment: Alignment.center,
-            child: Container(
+            child: const SizedBox(
                 width: 50,
                 height: 100,
                 child: Center(child: CircularProgressIndicator())),
@@ -192,7 +191,7 @@ void showInfoDialog(BuildContext context, String message) {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           alignment: Alignment.center,
           child: Container(
-            padding: EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.symmetric(vertical: 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: Colors.white,
@@ -204,24 +203,24 @@ void showInfoDialog(BuildContext context, String message) {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(bottom: 20),
+                    margin: const EdgeInsets.only(bottom: 20),
                     height: constraints.maxHeight * 0.5,
                     child: SvgPicture.asset('assets/images/info.svg'),
                   ),
                   Column(
                     children: [
-                      Text(
+                      const Text(
                         'INFORMATION',
                         style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
                             color: Colors.amber),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       Text(message,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w600),
                           textAlign: TextAlign.center),
                     ],

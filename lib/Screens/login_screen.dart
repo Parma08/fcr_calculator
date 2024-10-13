@@ -7,7 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({super.key});
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -37,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
       await initializeDataFromDB();
       isLoading = false;
       Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_) {
-        return TabsPage();
+        return const TabsPage();
       }), (route) => false);
     } on FirebaseAuthException catch (e) {
       isLoading = false;
@@ -60,19 +60,19 @@ class _LoginScreenState extends State<LoginScreen> {
 
     return Container(
         alignment: Alignment.center,
-        margin: EdgeInsets.only(bottom: 20),
+        margin: const EdgeInsets.only(bottom: 20),
         width: MediaQuery.of(context).size.width * 0.9,
         height: 60,
-        padding: EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
-            color: Color(0xFFE4E4E4), borderRadius: BorderRadius.circular(10)),
+            color: const Color(0xFFE4E4E4), borderRadius: BorderRadius.circular(10)),
         child: LayoutBuilder(
           builder: (_, constraints) {
             return Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 icon,
-                Container(
+                SizedBox(
                   width: constraints.maxWidth * 0.9,
                   child: TextField(
                     controller: controller,
@@ -96,7 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
         children: [
           IgnorePointer(
             ignoring: isLoading,
-            child: Container(
+            child: SizedBox(
               height: MediaQuery.of(context).size.height -
                   MediaQuery.of(context).padding.top,
               width: MediaQuery.of(context).size.width,
@@ -106,36 +106,36 @@ class _LoginScreenState extends State<LoginScreen> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(
+                        SizedBox(
                           height: constraints.maxHeight * 0.3,
                           child: Image.asset(
                             'assets/images/success.png',
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 30,
                         ),
-                        Text(
+                        const Text(
                           'Please Login to Continue',
                           style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
                               decoration: TextDecoration.underline),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 30,
                         ),
                         inputFieldBuilder(
                             context: context,
                             hintText: 'Enter Your Email',
                             controller: emailController,
-                            icon: Icon(Icons.email),
+                            icon: const Icon(Icons.email),
                             type: 'email'),
                         inputFieldBuilder(
                             context: context,
                             hintText: 'Enter Your Password',
                             controller: passwordController,
-                            icon: Icon(Icons.lock),
+                            icon: const Icon(Icons.lock),
                             type: 'password'),
                         GestureDetector(
                           onTap: () {
@@ -143,14 +143,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                           child: Center(
                             child: Container(
-                                margin: EdgeInsets.symmetric(vertical: 20),
+                                margin: const EdgeInsets.symmetric(vertical: 20),
                                 width: MediaQuery.of(context).size.width * 0.9,
                                 height: 40,
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
                                     color: Theme.of(context).primaryColor,
                                     borderRadius: BorderRadius.circular(100)),
-                                child: Text(
+                                child: const Text(
                                   'Login',
                                   style: TextStyle(
                                       color: Colors.white,
@@ -158,14 +158,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                 )),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         GestureDetector(
                           onTap: () {
                             Navigator.of(context)
                                 .push(MaterialPageRoute(builder: (_) {
-                              return RegisterScreen();
+                              return const RegisterScreen();
                             }));
                           },
                           child: Text(
@@ -177,14 +177,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                 decoration: TextDecoration.underline),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 50,
                         ),
                         GestureDetector(
                           onTap: () {
                             Navigator.of(context)
                                 .push(MaterialPageRoute(builder: (_) {
-                              return GuestUserScreen();
+                              return const GuestUserScreen();
                             }));
                           },
                           child: Text(
@@ -203,11 +203,11 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           if (isLoading)
-            Container(
+            SizedBox(
               height: MediaQuery.of(context).size.height -
                   MediaQuery.of(context).padding.top,
               width: MediaQuery.of(context).size.width,
-              child: Center(
+              child: const Center(
                 child: CircularProgressIndicator(),
               ),
             ),

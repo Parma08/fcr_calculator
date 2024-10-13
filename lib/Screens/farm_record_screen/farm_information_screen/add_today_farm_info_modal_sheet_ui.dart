@@ -46,7 +46,7 @@ class _AddTodayFarmInfoMoodalSheetUIState
   Widget labelFieldsBuilder(TextEditingController controller, String labelName,
       {TextInputType inputType = TextInputType.number}) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       width: MediaQuery.of(context).size.width,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -56,11 +56,11 @@ class _AddTodayFarmInfoMoodalSheetUIState
             style: Theme.of(context).textTheme.labelMedium,
           ),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 5),
             height: 50,
             width: 130,
             decoration: BoxDecoration(
-                color: Color(0xFFE4E4E4),
+                color: const Color(0xFFE4E4E4),
                 borderRadius: BorderRadius.circular(10)),
             child: TextField(
               onTap: inputType == TextInputType.datetime
@@ -70,7 +70,7 @@ class _AddTodayFarmInfoMoodalSheetUIState
                   : null,
               readOnly: inputType == TextInputType.datetime ? true : false,
               style: Theme.of(context).textTheme.labelMedium,
-              decoration: InputDecoration(border: InputBorder.none),
+              decoration: const InputDecoration(border: InputBorder.none),
               controller: controller,
               keyboardType: inputType,
             ),
@@ -101,46 +101,46 @@ class _AddTodayFarmInfoMoodalSheetUIState
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: MediaQuery.of(context).size.height * 0.8,
       child: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           labelFieldsBuilder(widget.dateController, "Date",
               inputType: TextInputType.datetime),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           labelFieldsBuilder(
               widget.feedConsumedController, "Total Feed (In Kgs)"),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           labelFieldsBuilder(widget.mortalityController, "Mortality (In Pcs)"),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           labelFieldsBuilder(
             widget.additionalFeedController,
             "New Feed (in Kgs)",
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           labelFieldsBuilder(
             widget.totalChicksSoldPiecesController,
             "Chicks Sold (in Pcs)",
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           labelFieldsBuilder(
             widget.totalChicksSoldWeightController,
             "Chicks Sold (in Kgs)",
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           GestureDetector(
@@ -200,14 +200,14 @@ class _AddTodayFarmInfoMoodalSheetUIState
             },
             child: Center(
               child: Container(
-                  margin: EdgeInsets.symmetric(vertical: 20),
+                  margin: const EdgeInsets.symmetric(vertical: 20),
                   width: MediaQuery.of(context).size.width * 0.9,
                   height: 40,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                       color: Theme.of(context).primaryColor,
                       borderRadius: BorderRadius.circular(100)),
-                  child: Text(
+                  child: const Text(
                     'Create New Entry',
                     style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold),

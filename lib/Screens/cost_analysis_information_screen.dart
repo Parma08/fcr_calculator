@@ -9,7 +9,7 @@ import '../table_display.dart';
 
 class CostAnalysisInformationScreen extends StatelessWidget {
   EffectiveBirdCostModal calculationDisplayInformation;
-  CostAnalysisInformationScreen({required this.calculationDisplayInformation});
+  CostAnalysisInformationScreen({super.key, required this.calculationDisplayInformation});
 
   @override
   Widget build(BuildContext context) {
@@ -34,16 +34,16 @@ class CostAnalysisInformationScreen extends StatelessWidget {
                   }
                 }
               },
-              icon: Icon(Icons.delete_forever)),
+              icon: const Icon(Icons.delete_forever)),
           IconButton(
               onPressed: () {
                 generateCostAnalysisPDF(calculationDisplayInformation);
               },
-              icon: Icon(Icons.picture_as_pdf_rounded))
+              icon: const Icon(Icons.picture_as_pdf_rounded))
         ],
       ),
       body: Container(
-        margin: EdgeInsets.only(top: 20),
+        margin: const EdgeInsets.only(top: 20),
         height: MediaQuery.of(context).size.height -
             (AppBar().preferredSize.height +
                 MediaQuery.of(context).padding.top),

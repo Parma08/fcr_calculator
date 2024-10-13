@@ -19,15 +19,15 @@ class CostAnalysisTab extends StatelessWidget {
           child: IconButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-                  return PerBirdCostScreen();
+                  return const PerBirdCostScreen();
                 }));
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.add,
                 color: Colors.white,
               )),
         ),
-        body: Container(
+        body: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height -
               (MediaQuery.of(context).padding.top +
@@ -45,7 +45,7 @@ class CostAnalysisTab extends StatelessWidget {
                     }));
                   },
                   child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
@@ -54,13 +54,11 @@ class CostAnalysisTab extends StatelessWidget {
                               color: Theme.of(context).primaryColorLight,
                               blurRadius: 4)
                         ]),
-                    margin: EdgeInsets.symmetric(vertical: 10),
+                    margin: const EdgeInsets.symmetric(vertical: 10),
                     child: Text(
-                      'Rs ' +
-                          getCostAnalysisHistory[index]
+                      'Rs ${getCostAnalysisHistory[index]
                               .effectivePerBirdCost
-                              .toStringAsFixed(1) +
-                          '/bird',
+                              .toStringAsFixed(1)}/bird',
                       style: Theme.of(context).textTheme.labelMedium,
                     ),
                   ),

@@ -10,7 +10,7 @@ import '../table_display.dart';
 
 class CalculatorScreen extends StatefulWidget {
   bool showFullCalculator;
-  CalculatorScreen({this.showFullCalculator = false});
+  CalculatorScreen({super.key, this.showFullCalculator = false});
 
   @override
   State<CalculatorScreen> createState() => _CalculatorScreenState();
@@ -48,7 +48,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   void _scrollDown() {
     scrollController.animateTo(
       scrollController.offset + (MediaQuery.of(context).size.height * 0.5),
-      duration: Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
       curve: Curves.easeOut,
     );
   }
@@ -138,11 +138,11 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     return Tooltip(
       decoration: BoxDecoration(color: Theme.of(context).primaryColor),
       preferBelow: false,
-      waitDuration: Duration(microseconds: 10),
-      padding: EdgeInsets.all(10),
+      waitDuration: const Duration(microseconds: 10),
+      padding: const EdgeInsets.all(10),
       message: getQuickInfo(labelName),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         width: MediaQuery.of(context).size.width,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -152,15 +152,15 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
               style: Theme.of(context).textTheme.labelMedium,
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 5),
+              padding: const EdgeInsets.symmetric(horizontal: 5),
               height: 50,
               width: 100,
               decoration: BoxDecoration(
-                  color: Color(0xFFE4E4E4),
+                  color: const Color(0xFFE4E4E4),
                   borderRadius: BorderRadius.circular(10)),
               child: TextField(
                 style: Theme.of(context).textTheme.labelMedium,
-                decoration: InputDecoration(border: InputBorder.none),
+                decoration: const InputDecoration(border: InputBorder.none),
                 controller: controller,
                 keyboardType: TextInputType.number,
               ),
@@ -178,10 +178,10 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         alignment: Alignment.center,
         height: 60,
         width: MediaQuery.of(context).size.width * 0.9,
-        padding: EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Color(0xFFE4E4E4),
+          color: const Color(0xFFE4E4E4),
         ),
         child: TextField(
           controller: controller,
@@ -200,10 +200,10 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         alignment: Alignment.center,
         height: 60,
         width: MediaQuery.of(context).size.width * 0.9,
-        padding: EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Color(0xFFE4E4E4),
+          color: const Color(0xFFE4E4E4),
         ),
         child: TextField(
           onTap: () {
@@ -249,14 +249,14 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 showInfoDialog(context,
                     'You can hold on each field to get some information about them');
               },
-              icon: Icon(Icons.info_outline))
+              icon: const Icon(Icons.info_outline))
         ],
         elevation: 0,
-        title: Text('Calculator'),
+        title: const Text('Calculator'),
         centerTitle: true,
       ),
       body: Container(
-        padding: EdgeInsets.only(top: 15, bottom: 5),
+        padding: const EdgeInsets.only(top: 15, bottom: 5),
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height -
             (AppBar().preferredSize.height +
@@ -267,32 +267,32 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
             controller: scrollController,
             children: [
               labelFieldsBuilder(totalSoldWeight, 'Total Sold Weight\n(in KG)'),
-              Divider(),
+              const Divider(),
               labelFieldsBuilder(totalSoldBirds, 'Total Sold Bird\n(in Pcs)'),
-              Divider(),
+              const Divider(),
               labelFieldsBuilder(
                   totalPlacedChicks, 'Total Placed Chicks\n(in Pcs)'),
-              Divider(),
+              const Divider(),
               labelFieldsBuilder(
                   totalFeedConsumed, 'Total Feed Consumed\n(in KG)'),
-              Divider(),
+              const Divider(),
               labelFieldsBuilder(expectedFCR, 'Expected FCR'),
-              Divider(),
+              const Divider(),
               widget.showFullCalculator
                   ? Column(
                       children: [
                         inputTextFieldBuilder('Farmer Name', farmerName),
-                        Divider(),
+                        const Divider(),
                         inputTextFieldBuilder('Feed Name', feedName),
-                        Divider(),
+                        const Divider(),
                         datetimeFieldBuilder('Chick Placement Date',
                             chickPlacementDateController, 'placementDate'),
-                        Divider(),
+                        const Divider(),
                         datetimeFieldBuilder('Chick Sell Date',
                             chickSellDateController, 'sellDate'),
                       ],
                     )
-                  : SizedBox(),
+                  : const SizedBox(),
               GestureDetector(
                 onTap: () {
                   myFocusNode.unfocus();
@@ -301,14 +301,14 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 },
                 child: Center(
                   child: Container(
-                      margin: EdgeInsets.symmetric(vertical: 20),
+                      margin: const EdgeInsets.symmetric(vertical: 20),
                       width: MediaQuery.of(context).size.width * 0.9,
                       height: 40,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                           color: Theme.of(context).primaryColor,
                           borderRadius: BorderRadius.circular(100)),
-                      child: Text(
+                      child: const Text(
                         'Calculate FCR',
                         style: TextStyle(
                             color: Colors.white, fontWeight: FontWeight.bold),
@@ -318,7 +318,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
               showValues
                   ? TableDisplayFCR(
                       calculationData: CalculationDisplayModal(
-                          id: Uuid().v1(),
+                          id: const Uuid().v1(),
                           inputs: FCRInputsModal(
                               totalSoldWeight:
                                   double.parse(totalSoldWeight.text),
@@ -344,7 +344,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       showFullDetails: widget.showFullCalculator,
                       saveDataEnabled: true,
                     )
-                  : SizedBox(),
+                  : const SizedBox(),
             ],
           ),
         ),

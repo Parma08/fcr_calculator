@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 
 class CalculationDisplayModal {
   String id;
@@ -24,7 +23,7 @@ class CalculationDisplayModal {
       required this.mortalityCount,
       required this.age,
       required this.idealFeedConsumption,
-      required this.feedDifference}) {}
+      required this.feedDifference});
 }
 
 class FCRInputsModal {

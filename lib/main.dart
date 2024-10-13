@@ -1,7 +1,5 @@
-import 'package:fcr_calculator/Screens/calculator_screen.dart';
 import 'package:fcr_calculator/services/firebase_service.dart';
 import 'package:fcr_calculator/tabs_page.dart';
-import 'package:fcr_calculator/utils/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -18,12 +16,13 @@ void main() async {
       return;
     }
   }
-  runApp(MyWidget());
+  runApp(const MyWidget());
 }
 
 class ErrorWidget extends StatelessWidget {
   String message;
-  ErrorWidget(this.message);
+  ErrorWidget(this.message, {super.key});
+  @override
   Widget build(BuildContext context) {
     return Center(
       child: Text(message),
@@ -38,27 +37,27 @@ class MyWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-          textTheme: TextTheme(
+          textTheme: const TextTheme(
         labelMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
       )),
       home: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
 
           if (snapshot.hasError) {
-            return Center(
+            return const Center(
               child: Text('Something went Wrong'),
             );
           }
           if (snapshot.hasData) {
-            return TabsPage();
+            return const TabsPage();
           } else {
-            return LoginScreen();
+            return const LoginScreen();
           }
         },
       ),

@@ -1,6 +1,5 @@
 import 'package:fcr_calculator/Screens/farm_record_screen/farm_information_screen/farm_information_screen.dart';
 import 'package:fcr_calculator/Screens/farm_record_screen/farm_record_modal_sheet_ui.dart';
-import 'package:fcr_calculator/modals/data_modal.dart';
 import 'package:fcr_calculator/utils/gettersetter.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -31,7 +30,7 @@ class _FarmRecordScreenState extends State<FarmRecordScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Farm Records"),
+        title: const Text("Farm Records"),
         centerTitle: true,
         elevation: 0,
       ),
@@ -57,18 +56,18 @@ class _FarmRecordScreenState extends State<FarmRecordScreen> {
                   });
               setState(() {});
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.add,
               color: Colors.white,
             )),
       ),
-      body: Container(
+      body: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height -
             (MediaQuery.of(context).padding.top +
                 AppBar().preferredSize.height),
         child: getFarmRecords.isEmpty
-            ? Center(
+            ? const Center(
                 child: Text("No Farm Records to show"),
               )
             : LayoutBuilder(
@@ -86,7 +85,7 @@ class _FarmRecordScreenState extends State<FarmRecordScreen> {
                       },
                       child: Container(
                         padding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                            const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(10),
@@ -95,16 +94,16 @@ class _FarmRecordScreenState extends State<FarmRecordScreen> {
                                   color: Theme.of(context).primaryColorLight,
                                   blurRadius: 4)
                             ]),
-                        margin: EdgeInsets.symmetric(vertical: 10),
+                        margin: const EdgeInsets.symmetric(vertical: 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              margin: EdgeInsets.symmetric(vertical: 5),
+                              margin: const EdgeInsets.symmetric(vertical: 5),
                               child: Text(
                                   DateFormat.yMMMd().format(
                                       getFarmRecords[index].chickPlacementDate),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 16)),
                             ),
@@ -116,10 +115,10 @@ class _FarmRecordScreenState extends State<FarmRecordScreen> {
                                   children: [
                                     Container(
                                       width: constraints.maxWidth * 0.7,
-                                      margin: EdgeInsets.symmetric(vertical: 5),
+                                      margin: const EdgeInsets.symmetric(vertical: 5),
                                       child: Text(
-                                        '${getFarmRecords[index].farmName}',
-                                        style: TextStyle(
+                                        getFarmRecords[index].farmName,
+                                        style: const TextStyle(
                                             fontWeight: FontWeight.w500,
                                             fontSize: 16),
                                       ),
@@ -127,7 +126,7 @@ class _FarmRecordScreenState extends State<FarmRecordScreen> {
                                   ],
                                 ),
                                 Container(
-                                  padding: EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(10),
                                   decoration: BoxDecoration(
                                       border: Border.all(
                                           color: Colors.black, width: 1)),
@@ -135,7 +134,7 @@ class _FarmRecordScreenState extends State<FarmRecordScreen> {
                                     getFarmRecords[index]
                                         .totalChicksPlaced
                                         .toString(),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontWeight: FontWeight.w700,
                                       fontSize: 16,
                                     ),

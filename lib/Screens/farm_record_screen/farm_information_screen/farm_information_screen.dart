@@ -53,15 +53,15 @@ class _FarmInformationScreenState extends State<FarmInformationScreen> {
       {Color color = Colors.black}) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.9,
-      padding: EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             keyName,
-            style: TextStyle(fontSize: 16),
+            style: const TextStyle(fontSize: 16),
           ),
-          SizedBox(
+          const SizedBox(
             width: 30,
           ),
           Text(
@@ -129,7 +129,7 @@ class _FarmInformationScreenState extends State<FarmInformationScreen> {
                 doFarmDataCalculations();
               });
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.add,
               color: Colors.white,
             )),
@@ -155,7 +155,7 @@ class _FarmInformationScreenState extends State<FarmInformationScreen> {
                   }
                 }
               },
-              icon: Icon(Icons.delete_forever))
+              icon: const Icon(Icons.delete_forever))
         ],
         title: Text(widget.farmRecord.farmName),
         centerTitle: true,
@@ -163,29 +163,29 @@ class _FarmInformationScreenState extends State<FarmInformationScreen> {
       body: Container(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             topInfoTileBuilder("Total Chicks Placed",
                 "${widget.farmRecord.totalChicksPlaced} Pcs"),
-            Divider(),
+            const Divider(),
             topInfoTileBuilder("Total Feed In Stock",
                 "${totalFeedInStock.toStringAsFixed(2)} Kgs",
                 color: Colors.blueAccent),
-            Divider(),
+            const Divider(),
             topInfoTileBuilder("Total Feed Consumed",
                 "${totalFeedConsumed.toStringAsFixed(2)} Kgs",
                 color: Colors.brown),
-            Divider(),
-            topInfoTileBuilder("Total Mortality", "${totalMortality} Pcs",
+            const Divider(),
+            topInfoTileBuilder("Total Mortality", "$totalMortality Pcs",
                 color: Colors.red),
-            Divider(),
+            const Divider(),
             topInfoTileBuilder("Remaining Birds",
                 "${widget.farmRecord.totalChicksPlaced - (totalMortality + totalChicksSoldPieces)} Pcs",
                 color: Colors.green),
-            Divider(),
+            const Divider(),
             topInfoTileBuilder("Total Birds Sold",
-                "${totalChicksSoldPieces} Pcs / ${totalChicksSoldWeight.toStringAsFixed(2)} Kgs",
+                "$totalChicksSoldPieces Pcs / ${totalChicksSoldWeight.toStringAsFixed(2)} Kgs",
                 color: Colors.blueGrey),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -199,11 +199,11 @@ class _FarmInformationScreenState extends State<FarmInformationScreen> {
                     child: Text(
                       'Bird Data',
                       style: showWhichData == 0
-                          ? TextStyle(
+                          ? const TextStyle(
                               color: Colors.deepPurpleAccent,
                               fontWeight: FontWeight.bold,
                               fontSize: 16)
-                          : TextStyle(),
+                          : const TextStyle(),
                     )),
                 TextButton(
                   onPressed: () {
@@ -213,11 +213,11 @@ class _FarmInformationScreenState extends State<FarmInformationScreen> {
                   },
                   child: Text('Feed Data',
                       style: showWhichData == 1
-                          ? TextStyle(
+                          ? const TextStyle(
                               color: Colors.deepPurpleAccent,
                               fontWeight: FontWeight.bold,
                               fontSize: 16)
-                          : TextStyle()),
+                          : const TextStyle()),
                 ),
                 TextButton(
                     onPressed: () {
@@ -227,20 +227,20 @@ class _FarmInformationScreenState extends State<FarmInformationScreen> {
                     },
                     child: Text('Sales Data',
                         style: showWhichData == 2
-                            ? TextStyle(
+                            ? const TextStyle(
                                 color: Colors.deepPurpleAccent,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16)
-                            : TextStyle()))
+                            : const TextStyle()))
               ],
             ),
-            Container(
+            SizedBox(
               height: MediaQuery.of(context).size.height * 0.52,
               child: SingleChildScrollView(
                 child: Column(
                   children: [
                     widget.farmRecord.farmInformation.isEmpty
-                        ? Text("No data to show")
+                        ? const Text("No data to show")
                         : showWhichData == 0
                             ? TableDisplayFarmInformation(
                                 farmRecord: widget.farmRecord)

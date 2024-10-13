@@ -8,7 +8,7 @@ class GuestUserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: SizedBox(
         height: MediaQuery.of(context).size.height -
             MediaQuery.of(context).padding.top,
         width: MediaQuery.of(context).size.width,
@@ -16,11 +16,11 @@ class GuestUserScreen extends StatelessWidget {
           return Column(
             children: [
               Container(
-                margin: EdgeInsets.only(top: 60),
+                margin: const EdgeInsets.only(top: 60),
                 height: constraints.maxHeight * 0.35,
                 child: SvgPicture.asset('assets/images/info.svg'),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Padding(
@@ -31,7 +31,7 @@ class GuestUserScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               ElevatedButton(
@@ -40,7 +40,7 @@ class GuestUserScreen extends StatelessWidget {
                       return CalculatorScreen();
                     }));
                   },
-                  child: Text('Move to FCR Calculator'))
+                  child: const Text('Move to FCR Calculator'))
             ],
           );
         }),

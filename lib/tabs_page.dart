@@ -6,7 +6,7 @@ import 'package:fcr_calculator/Screens/profilescreen.dart';
 import 'package:flutter/material.dart';
 
 class TabsPage extends StatefulWidget {
-  TabsPage({super.key});
+  const TabsPage({super.key});
 
   @override
   State<TabsPage> createState() => _TabsPageState();
@@ -15,10 +15,10 @@ class TabsPage extends StatefulWidget {
 class _TabsPageState extends State<TabsPage> {
   List<Widget> tabScreens = [
     CalculatorScreen(),
-    PerBirdCostScreen(),
-    HistoryScreen(),
-    FarmRecordScreen(),
-    ProfileScreen(),
+    const PerBirdCostScreen(),
+    const HistoryScreen(),
+    const FarmRecordScreen(),
+    const ProfileScreen(),
   ];
   int index = 0;
   @override
@@ -33,7 +33,7 @@ class _TabsPageState extends State<TabsPage> {
             });
           },
           currentIndex: index,
-          items: [
+          items: const [
             BottomNavigationBarItem(
                 icon: Icon(Icons.calculate_outlined), label: 'FCR'),
             BottomNavigationBarItem(

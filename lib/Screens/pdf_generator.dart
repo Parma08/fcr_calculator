@@ -16,17 +16,17 @@ void generateFCRPDF(CalculationDisplayModal pdfInfo) async {
 
   TableRow tableRowBuilder(String key, String value) {
     List<String> unit = getFCRCalucaltionUnit(key);
-    return TableRow(decoration: BoxDecoration(), children: [
+    return TableRow(decoration: const BoxDecoration(), children: [
       Center(
           child: (Padding(
-              padding: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
               child: Text(key,
                   style:
                       TextStyle(fontSize: 16, fontWeight: FontWeight.bold))))),
       Center(
           child: (Padding(
-              padding: EdgeInsets.all(5),
-              child: Text('${unit[0]} ${value} ${unit[1]}',
+              padding: const EdgeInsets.all(5),
+              child: Text('${unit[0]} $value ${unit[1]}',
                   style:
                       TextStyle(fontSize: 16, fontWeight: FontWeight.bold))))),
     ]);
@@ -88,7 +88,7 @@ void generateFCRPDF(CalculationDisplayModal pdfInfo) async {
       }));
 
   final output = await getTemporaryDirectory();
-  final file = File('${output.path}/${Uuid().v1()}.pdf');
+  final file = File('${output.path}/${const Uuid().v1()}.pdf');
 
   // Convert the Uint8List to a List<int>
   final pdfBytes = await doc.save();
@@ -100,7 +100,7 @@ void generateFCRPDF(CalculationDisplayModal pdfInfo) async {
   print('PDF saved to ${file.path}');
 
   // Share the PDF file
-  Share.shareFiles(['${file.path}'], text: 'Check out this PDF!');
+  Share.shareFiles([(file.path)], text: 'Check out this PDF!');
 
   // print(outputFile);
 }
@@ -110,17 +110,17 @@ void generateCostAnalysisPDF(EffectiveBirdCostModal pdfInfo) async {
 
   TableRow tableRowBuilder(String key, String value) {
     List<String> unit = getCostAnalysisUnit(key);
-    return TableRow(decoration: BoxDecoration(), children: [
+    return TableRow(decoration: const BoxDecoration(), children: [
       Center(
           child: (Padding(
-              padding: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
               child: Text(key,
                   style:
                       TextStyle(fontSize: 16, fontWeight: FontWeight.bold))))),
       Center(
           child: (Padding(
-              padding: EdgeInsets.all(5),
-              child: Text('${unit[0]} ${value} ${unit[1]}',
+              padding: const EdgeInsets.all(5),
+              child: Text('${unit[0]} $value ${unit[1]}',
                   style:
                       TextStyle(fontSize: 16, fontWeight: FontWeight.bold))))),
     ]);
@@ -175,7 +175,7 @@ void generateCostAnalysisPDF(EffectiveBirdCostModal pdfInfo) async {
       }));
 
   final output = await getTemporaryDirectory();
-  final file = File('${output.path}/${Uuid().v1()}.pdf');
+  final file = File('${output.path}/${const Uuid().v1()}.pdf');
 
   // Convert the Uint8List to a List<int>
   final pdfBytes = await doc.save();
@@ -187,7 +187,7 @@ void generateCostAnalysisPDF(EffectiveBirdCostModal pdfInfo) async {
   print('PDF saved to ${file.path}');
 
   // Share the PDF file
-  Share.shareFiles(['${file.path}'], text: 'Check out this PDF!');
+  Share.shareFiles([(file.path)], text: 'Check out this PDF!');
 
   // print(outputFile);
 }

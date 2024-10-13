@@ -1,11 +1,7 @@
 import 'package:fcr_calculator/Screens/cost_analysis_history.dart';
 import 'package:fcr_calculator/Screens/fcr_history_tab.dart';
-import 'package:fcr_calculator/utils/gettersetter.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
-import '../utils/utils.dart';
-import 'calculator_screen.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({super.key});
@@ -22,9 +18,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
-          title: Text('History'),
+          title: const Text('History'),
           centerTitle: true,
-          bottom: TabBar(indicatorWeight: 3, tabs: [
+          bottom: const TabBar(indicatorWeight: 3, tabs: [
             Tab(
               text: 'FCR History',
             ),
@@ -33,7 +29,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
             ),
           ]),
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: [
             FCRHistoryTab(),
             CostAnalysisTab(),

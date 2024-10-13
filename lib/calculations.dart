@@ -84,7 +84,7 @@ EffectiveBirdCostModal calculateEffectiveBirdCost(
   double costPerBird = totalExpenses / inputs.totalBirdsSold;
   EffectiveBirdCostModal effectiveCost = EffectiveBirdCostModal(
       inputs: inputs,
-      id: Uuid().v1(),
+      id: const Uuid().v1(),
       totalBagsConsumed: totalBagsConsumed,
       feedExpenses: totalFeedCost,
       birdExpenses: totalBirdCost,

@@ -8,18 +8,18 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile'),
+        title: const Text('Profile'),
         centerTitle: true,
         elevation: 0,
       ),
       body: Column(
         children: [
           Container(
-            margin: EdgeInsets.symmetric(vertical: 10),
+            margin: const EdgeInsets.symmetric(vertical: 10),
             decoration: BoxDecoration(color: Colors.white, boxShadow: [
               BoxShadow(color: Theme.of(context).primaryColor, blurRadius: 5),
             ]),
-            padding: EdgeInsets.all(15),
+            padding: const EdgeInsets.all(15),
             alignment: Alignment.centerLeft,
             child: Text(
               'Reset Password',
@@ -34,7 +34,7 @@ class ProfileScreen extends StatelessWidget {
               decoration: BoxDecoration(color: Colors.white, boxShadow: [
                 BoxShadow(color: Theme.of(context).primaryColor, blurRadius: 5),
               ]),
-              padding: EdgeInsets.all(15),
+              padding: const EdgeInsets.all(15),
               alignment: Alignment.centerLeft,
               child: Text('Log out',
                   style: Theme.of(context).textTheme.labelMedium),

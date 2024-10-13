@@ -1,9 +1,6 @@
 import 'package:fcr_calculator/utils/gettersetter.dart';
 import 'package:fcr_calculator/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 
 import 'modals/data_modal.dart';
@@ -12,7 +9,7 @@ class TableDisplayFCR extends StatelessWidget {
   CalculationDisplayModal calculationData;
   bool showFullDetails;
   bool saveDataEnabled;
-  TableDisplayFCR({
+  TableDisplayFCR({super.key, 
     required this.calculationData,
     required this.showFullDetails,
     required this.saveDataEnabled,
@@ -63,7 +60,7 @@ class TableDisplayFCR extends StatelessWidget {
         decoration: (title == 'Chick Sell Date' && showFullDetails) ||
                 (title == 'CFCR' && !showFullDetails)
             ? BoxDecoration(border: Border.all(width: 1, color: Colors.black))
-            : BoxDecoration(
+            : const BoxDecoration(
                 border: Border(
                     top: BorderSide(width: 1, color: Colors.black),
                     left: BorderSide(width: 1, color: Colors.black),
@@ -74,16 +71,16 @@ class TableDisplayFCR extends StatelessWidget {
             children: [
               Container(
                 alignment: Alignment.centerLeft,
-                padding: EdgeInsets.symmetric(horizontal: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 5),
                 height: constraints.maxHeight,
                 width: constraints.maxWidth * 0.5,
                 decoration: BoxDecoration(
                     color: (title == 'FCR' ||
                             title == 'CFCR' ||
                             title == 'Feed Difference(KG)')
-                        ? Color.fromRGBO(68, 138, 255, 0.4)
+                        ? const Color.fromRGBO(68, 138, 255, 0.4)
                         : Colors.white,
-                    border: Border(
+                    border: const Border(
                         right: BorderSide(width: 1, color: Colors.black))),
                 child:
                     Text(title, style: Theme.of(context).textTheme.labelMedium),
@@ -92,14 +89,14 @@ class TableDisplayFCR extends StatelessWidget {
                 color: (title == 'FCR' ||
                         title == 'CFCR' ||
                         title == 'Feed Difference(KG)')
-                    ? Color.fromRGBO(68, 138, 255, 0.4)
+                    ? const Color.fromRGBO(68, 138, 255, 0.4)
                     : Colors.white,
-                padding: EdgeInsets.symmetric(horizontal: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 5),
                 alignment: Alignment.center,
                 height: constraints.maxHeight,
                 width: constraints.maxWidth * 0.5,
                 child: Text(
-                  '${units[0]} ${value} ${units[1]}',
+                  '${units[0]} $value ${units[1]}',
                   style: Theme.of(context).textTheme.labelMedium,
                 ),
               )
@@ -139,7 +136,7 @@ class TableDisplayFCR extends StatelessWidget {
             'Feed Difference',
             calculationData.feedDifference <= 0
                 ? calculationData.feedDifference.toStringAsFixed(2)
-                : ('+' + calculationData.feedDifference.toStringAsFixed(2))),
+                : ('+${calculationData.feedDifference.toStringAsFixed(2)}')),
         showCalculatedData(
             context, 'FCR', calculationData.fcr.toStringAsFixed(2)),
         showCalculatedData(
@@ -168,7 +165,7 @@ class TableDisplayFCR extends StatelessWidget {
                     saveData(context);
                   },
                   child: Container(
-                    margin: EdgeInsets.symmetric(vertical: 20),
+                    margin: const EdgeInsets.symmetric(vertical: 20),
                     alignment: Alignment.center,
                     width: 80,
                     height: 50,
@@ -176,7 +173,7 @@ class TableDisplayFCR extends StatelessWidget {
                       color: Theme.of(context).primaryColor,
                       borderRadius: BorderRadius.circular(100),
                     ),
-                    child: Text(
+                    child: const Text(
                       'Save',
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.w500),
@@ -193,7 +190,7 @@ class TableDisplayFCR extends StatelessWidget {
 class TableDisplayCostAnalysis extends StatelessWidget {
   EffectiveBirdCostModal calculationData;
   bool saveDataEnabled;
-  TableDisplayCostAnalysis({
+  TableDisplayCostAnalysis({super.key, 
     required this.calculationData,
     required this.saveDataEnabled,
   });
@@ -243,7 +240,7 @@ class TableDisplayCostAnalysis extends StatelessWidget {
         height: 40,
         decoration: (title == 'Effective Bird Cost')
             ? BoxDecoration(border: Border.all(width: 1, color: Colors.black))
-            : BoxDecoration(
+            : const BoxDecoration(
                 border: Border(
                     top: BorderSide(width: 1, color: Colors.black),
                     left: BorderSide(width: 1, color: Colors.black),
@@ -254,16 +251,16 @@ class TableDisplayCostAnalysis extends StatelessWidget {
             children: [
               Container(
                 alignment: Alignment.centerLeft,
-                padding: EdgeInsets.symmetric(horizontal: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 5),
                 height: constraints.maxHeight,
                 width: constraints.maxWidth * 0.5,
                 decoration: BoxDecoration(
                     color: (title == 'FCR' ||
                             title == 'CFCR' ||
                             title == 'Feed Difference(KG)')
-                        ? Color.fromRGBO(68, 138, 255, 0.4)
+                        ? const Color.fromRGBO(68, 138, 255, 0.4)
                         : Colors.white,
-                    border: Border(
+                    border: const Border(
                         right: BorderSide(width: 1, color: Colors.black))),
                 child:
                     Text(title, style: Theme.of(context).textTheme.labelMedium),
@@ -271,14 +268,14 @@ class TableDisplayCostAnalysis extends StatelessWidget {
               Container(
                 color: (title == 'Effective Bird Cost' ||
                         title == 'Total Expenses')
-                    ? Color.fromRGBO(68, 138, 255, 0.4)
+                    ? const Color.fromRGBO(68, 138, 255, 0.4)
                     : Colors.white,
-                padding: EdgeInsets.symmetric(horizontal: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 5),
                 alignment: Alignment.center,
                 height: constraints.maxHeight,
                 width: constraints.maxWidth * 0.5,
                 child: Text(
-                  '${prefixSufix[0]} ${value} ${prefixSufix[1]}',
+                  '${prefixSufix[0]} $value ${prefixSufix[1]}',
                   style: Theme.of(context).textTheme.labelMedium,
                 ),
               )
@@ -327,7 +324,7 @@ class TableDisplayCostAnalysis extends StatelessWidget {
               saveData(context);
             },
             child: Container(
-              margin: EdgeInsets.symmetric(vertical: 20),
+              margin: const EdgeInsets.symmetric(vertical: 20),
               alignment: Alignment.center,
               width: 80,
               height: 50,
@@ -335,7 +332,7 @@ class TableDisplayCostAnalysis extends StatelessWidget {
                 color: Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.circular(100),
               ),
-              child: Text(
+              child: const Text(
                 'Save',
                 style:
                     TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
@@ -354,19 +351,19 @@ class TableDisplayFarmInformation extends StatelessWidget {
   Widget farmInfoTitleBuilder(String title, double width) {
     return Container(
       width: width,
-      padding: EdgeInsets.only(left: 10, top: 10, bottom: 10),
+      padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
       decoration: BoxDecoration(
           border: Border(
-              top: BorderSide(width: 1, color: Colors.black),
-              bottom: BorderSide(width: 1, color: Colors.black),
-              left: BorderSide(width: 1, color: Colors.black),
+              top: const BorderSide(width: 1, color: Colors.black),
+              bottom: const BorderSide(width: 1, color: Colors.black),
+              left: const BorderSide(width: 1, color: Colors.black),
               right: title.contains("Feed")
-                  ? BorderSide(width: 1, color: Colors.black)
-                  : BorderSide(width: 0))),
+                  ? const BorderSide(width: 1, color: Colors.black)
+                  : const BorderSide(width: 0))),
       child: Text(
         title,
         maxLines: 1,
-        style: TextStyle(fontWeight: FontWeight.bold),
+        style: const TextStyle(fontWeight: FontWeight.bold),
       ),
     );
   }
@@ -375,14 +372,14 @@ class TableDisplayFarmInformation extends StatelessWidget {
       {bool showRightBorder = false, Color color = Colors.black}) {
     return Container(
       width: width,
-      padding: EdgeInsets.only(left: 10, top: 10, bottom: 10),
+      padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
       decoration: BoxDecoration(
           border: Border(
               right: showRightBorder
-                  ? BorderSide(width: 1, color: Colors.black)
-                  : BorderSide(width: 0),
-              bottom: BorderSide(width: 1, color: Colors.black),
-              left: BorderSide(width: 1, color: Colors.black))),
+                  ? const BorderSide(width: 1, color: Colors.black)
+                  : const BorderSide(width: 0),
+              bottom: const BorderSide(width: 1, color: Colors.black),
+              left: const BorderSide(width: 1, color: Colors.black))),
       child: Text(
         value,
         maxLines: 1,
@@ -441,8 +438,8 @@ class TableDisplayAdditionalFeedInfo extends StatelessWidget {
       {Color color = Colors.black}) {
     return Container(
       width: width,
-      padding: EdgeInsets.only(left: 10, top: 10, bottom: 10),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
+      decoration: const BoxDecoration(
           border: Border(
               top: BorderSide(width: 1, color: Colors.black),
               bottom: BorderSide(width: 1, color: Colors.black),
@@ -472,7 +469,7 @@ class TableDisplayAdditionalFeedInfo extends StatelessWidget {
           ),
           ...farmInformation.map((info) {
             return info.additionalFeed == 0
-                ? SizedBox()
+                ? const SizedBox()
                 : Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -498,8 +495,8 @@ class TableDisplaySalesInfo extends StatelessWidget {
       {Color color = Colors.black}) {
     return Container(
       width: width,
-      padding: EdgeInsets.only(left: 10, top: 10, bottom: 10),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
+      decoration: const BoxDecoration(
           border: Border(
               top: BorderSide(width: 1, color: Colors.black),
               bottom: BorderSide(width: 1, color: Colors.black),
@@ -529,7 +526,7 @@ class TableDisplaySalesInfo extends StatelessWidget {
           ),
           ...farmInformation.map((info) {
             return info.additionalFeed == 0
-                ? SizedBox()
+                ? const SizedBox()
                 : Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

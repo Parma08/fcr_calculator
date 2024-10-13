@@ -32,11 +32,11 @@ class _PerBirdCostScreenState extends State<PerBirdCostScreen> {
     return Tooltip(
       decoration: BoxDecoration(color: Theme.of(context).primaryColor),
       preferBelow: false,
-      waitDuration: Duration(microseconds: 10),
-      padding: EdgeInsets.all(10),
+      waitDuration: const Duration(microseconds: 10),
+      padding: const EdgeInsets.all(10),
       message: getQuickInfo(labelName),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         width: MediaQuery.of(context).size.width,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -46,17 +46,17 @@ class _PerBirdCostScreenState extends State<PerBirdCostScreen> {
               style: Theme.of(context).textTheme.labelMedium,
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 5),
+              padding: const EdgeInsets.symmetric(horizontal: 5),
               height: 50,
               width: 100,
               decoration: BoxDecoration(
-                  color: Color(0xFFE4E4E4),
+                  color: const Color(0xFFE4E4E4),
                   borderRadius: BorderRadius.circular(10)),
               child: TextField(
                 // readOnly: (labelName == 'Total feed consumed(KG)' ||
                 //     labelName == 'Total Birds Sold'),
                 style: Theme.of(context).textTheme.labelMedium,
-                decoration: InputDecoration(border: InputBorder.none),
+                decoration: const InputDecoration(border: InputBorder.none),
                 controller: controller,
                 keyboardType: TextInputType.number,
               ),
@@ -114,7 +114,7 @@ class _PerBirdCostScreenState extends State<PerBirdCostScreen> {
   void _scrollDown() {
     scrollController.animateTo(
       scrollController.offset + (MediaQuery.of(context).size.height * 0.5),
-      duration: Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
       curve: Curves.easeOut,
     );
   }
@@ -124,7 +124,7 @@ class _PerBirdCostScreenState extends State<PerBirdCostScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Text('Cost Analysis'),
+        title: const Text('Cost Analysis'),
         centerTitle: true,
         actions: [
           IconButton(
@@ -132,11 +132,11 @@ class _PerBirdCostScreenState extends State<PerBirdCostScreen> {
                 showInfoDialog(context,
                     'You can hold on each field to get some information about them');
               },
-              icon: Icon(Icons.info_outline))
+              icon: const Icon(Icons.info_outline))
         ],
       ),
       body: Container(
-        padding: EdgeInsets.only(top: 15, bottom: 5),
+        padding: const EdgeInsets.only(top: 15, bottom: 5),
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height -
             (AppBar().preferredSize.height +
@@ -148,22 +148,22 @@ class _PerBirdCostScreenState extends State<PerBirdCostScreen> {
             children: [
               labelFieldsBuilder(
                   totalFeedConsumedController, 'Total Feed Consumed\n(in KG)'),
-              Divider(),
+              const Divider(),
               labelFieldsBuilder(ratePerBag, 'Rate of 50KG Feed Bag\n(in Rs)'),
-              Divider(),
+              const Divider(),
               labelFieldsBuilder(chickCost, 'Per Chick Cost\n(in Rs)'),
-              Divider(),
+              const Divider(),
               labelFieldsBuilder(totalBirdsSold, 'Total Birds Sold\n(in Pcs)'),
-              Divider(),
+              const Divider(),
               labelFieldsBuilder(medicineCost, 'Medicine Cost\n(in Rs)'),
-              Divider(),
+              const Divider(),
               labelFieldsBuilder(labourCost, 'Labour Cost\n(in Rs)'),
-              Divider(),
+              const Divider(),
               labelFieldsBuilder(farmExpenses, 'Farm Expenses\n(in Rs)'),
-              Divider(),
+              const Divider(),
               labelFieldsBuilder(
                   farmercommission, 'Farmer Commission \n(Per Bird)'),
-              Divider(),
+              const Divider(),
               GestureDetector(
                 onTap: () {
                   myFocusNode.unfocus();
@@ -172,14 +172,14 @@ class _PerBirdCostScreenState extends State<PerBirdCostScreen> {
                 },
                 child: Center(
                   child: Container(
-                      margin: EdgeInsets.symmetric(vertical: 20),
+                      margin: const EdgeInsets.symmetric(vertical: 20),
                       width: MediaQuery.of(context).size.width * 0.9,
                       height: 40,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                           color: Theme.of(context).primaryColor,
                           borderRadius: BorderRadius.circular(100)),
-                      child: Text(
+                      child: const Text(
                         'Calculate Cost',
                         style: TextStyle(
                             color: Colors.white, fontWeight: FontWeight.bold),

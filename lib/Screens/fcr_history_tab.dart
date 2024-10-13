@@ -26,12 +26,12 @@ class FCRHistoryTab extends StatelessWidget {
                   );
                 }));
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.add,
                 color: Colors.white,
               )),
         ),
-        body: Container(
+        body: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height -
               (MediaQuery.of(context).padding.top +
@@ -49,7 +49,7 @@ class FCRHistoryTab extends StatelessWidget {
                     }));
                   },
                   child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
@@ -58,32 +58,32 @@ class FCRHistoryTab extends StatelessWidget {
                               color: Theme.of(context).primaryColorLight,
                               blurRadius: 4)
                         ]),
-                    margin: EdgeInsets.symmetric(vertical: 10),
+                    margin: const EdgeInsets.symmetric(vertical: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
                           children: [
                             Container(
-                              margin: EdgeInsets.symmetric(vertical: 5),
+                              margin: const EdgeInsets.symmetric(vertical: 5),
                               child: Text(
                                   DateFormat.yMMMd().format(
                                       getfcrCalculationHistory[index]
                                           .inputs
                                           .chickPlacementDate),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 16)),
                             ),
-                            Text('  ||  '),
+                            const Text('  ||  '),
                             Container(
-                              margin: EdgeInsets.symmetric(vertical: 5),
+                              margin: const EdgeInsets.symmetric(vertical: 5),
                               child: Text(
                                   DateFormat.yMMMd().format(
                                       getfcrCalculationHistory[index]
                                           .inputs
                                           .chickSellDate),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 16)),
                             ),
@@ -97,19 +97,19 @@ class FCRHistoryTab extends StatelessWidget {
                               children: [
                                 Container(
                                   width: constraints.maxWidth * 0.7,
-                                  margin: EdgeInsets.symmetric(vertical: 5),
+                                  margin: const EdgeInsets.symmetric(vertical: 5),
                                   child: Text(
                                     '${getfcrCalculationHistory[index].inputs.farmerName}',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 16),
                                   ),
                                 ),
-                                Container(
+                                SizedBox(
                                   width: constraints.maxWidth * 0.7,
                                   child: Text(
                                     '${getfcrCalculationHistory[index].inputs.feedName}',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 15),
                                   ),
@@ -117,7 +117,7 @@ class FCRHistoryTab extends StatelessWidget {
                               ],
                             ),
                             Container(
-                              padding: EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                   border: Border.all(
                                       color: Colors.black, width: 1)),

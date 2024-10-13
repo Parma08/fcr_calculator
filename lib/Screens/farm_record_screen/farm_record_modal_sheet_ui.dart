@@ -24,11 +24,11 @@ class _FarmRecordModalSheetUIState extends State<FarmRecordModalSheetUI> {
   Widget textFieldBuilder(TextEditingController controller, String hintText,
       {TextInputType textInputType = TextInputType.number}) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 5),
       height: 60,
       width: MediaQuery.of(context).size.width * 0.9,
       decoration: BoxDecoration(
-          color: Color(0xFFE4E4E4), borderRadius: BorderRadius.circular(10)),
+          color: const Color(0xFFE4E4E4), borderRadius: BorderRadius.circular(10)),
       child: TextField(
         style: Theme.of(context).textTheme.labelMedium,
         decoration:
@@ -46,10 +46,10 @@ class _FarmRecordModalSheetUIState extends State<FarmRecordModalSheetUI> {
         alignment: Alignment.center,
         height: 60,
         width: MediaQuery.of(context).size.width * 0.9,
-        padding: EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Color(0xFFE4E4E4),
+          color: const Color(0xFFE4E4E4),
         ),
         child: TextField(
           onTap: () {
@@ -94,27 +94,27 @@ class _FarmRecordModalSheetUIState extends State<FarmRecordModalSheetUI> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: MediaQuery.of(context).size.height * 0.8,
       child: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             textFieldBuilder(widget.farmNameController, "Farm Name",
                 textInputType: TextInputType.name),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             datetimeFieldBuilder(
                 "Chick Placement Date", widget.chickPlacementDateController),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             textFieldBuilder(widget.totalPlacedChicksController,
                 "Total chicks placed (In Pcs)"),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             GestureDetector(
@@ -125,7 +125,7 @@ class _FarmRecordModalSheetUIState extends State<FarmRecordModalSheetUI> {
                 }
                 showLoader(context);
                 FarmRecordModal farmRecord = FarmRecordModal(
-                    id: Uuid().v1(),
+                    id: const Uuid().v1(),
                     farmName: widget.farmNameController.text,
                     totalChicksPlaced:
                         int.parse(widget.totalPlacedChicksController.text),
@@ -147,14 +147,14 @@ class _FarmRecordModalSheetUIState extends State<FarmRecordModalSheetUI> {
               },
               child: Center(
                 child: Container(
-                    margin: EdgeInsets.symmetric(vertical: 20),
+                    margin: const EdgeInsets.symmetric(vertical: 20),
                     width: MediaQuery.of(context).size.width * 0.9,
                     height: 40,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                         color: Theme.of(context).primaryColor,
                         borderRadius: BorderRadius.circular(100)),
-                    child: Text(
+                    child: const Text(
                       'Create New Entry',
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
