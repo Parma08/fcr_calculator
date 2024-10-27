@@ -26,8 +26,7 @@ class _FarmInformationScreenState extends State<FarmInformationScreen> {
   TextEditingController mortalityController = TextEditingController();
   TextEditingController additionalFeedController =
       TextEditingController(text: '0');
-  TextEditingController dateController =
-      TextEditingController(text: DateFormat.yMMMd().format(DateTime.now()));
+  TextEditingController dateController = TextEditingController();
   TextEditingController feedConsumedController = TextEditingController();
   TextEditingController totalChicksSoldWeightController =
       TextEditingController(text: '0');
@@ -153,7 +152,7 @@ class _FarmInformationScreenState extends State<FarmInformationScreen> {
               },
               icon: const Text(
                 "FCR",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w900),
               )),
           IconButton(
               onPressed: () async {

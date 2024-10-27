@@ -74,6 +74,8 @@ class _QuickFCRCalculationModalSheetUIState
             onTap: () {
               if (avgWeightTextEditingController.text.isNotEmpty &&
                   num.tryParse(avgWeightTextEditingController.text) != null) {
+                FocusScope.of(context).unfocus();
+
                 // (totalConsumedFeed / totalSoldWeight);
                 double totalBirdWeight = widget.totalNumberOfBirds *
                     double.parse(avgWeightTextEditingController.text);
@@ -103,7 +105,8 @@ class _QuickFCRCalculationModalSheetUIState
           computedFCR == 0
               ? const SizedBox()
               : Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   decoration: BoxDecoration(border: Border.all(width: 1)),
                   child: Text(
                     computedFCR.toStringAsFixed(2),

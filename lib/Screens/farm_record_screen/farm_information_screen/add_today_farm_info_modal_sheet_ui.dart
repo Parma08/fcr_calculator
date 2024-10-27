@@ -29,7 +29,21 @@ class AddTodayFarmInfoMoodalSheetUI extends StatefulWidget {
 
 class _AddTodayFarmInfoMoodalSheetUIState
     extends State<AddTodayFarmInfoMoodalSheetUI> {
-  DateTime selectedDate = DateTime.now();
+  late DateTime selectedDate;
+  @override
+  void initState() {
+    super.initState();
+    selectedDate = DateTime.now();
+
+    widget.additionalFeedController.text = '0';
+    widget.totalChicksSoldPiecesController.text = '0';
+    widget.totalChicksSoldWeightController.text = '0';
+    widget.dateController.text = DateFormat.yMMMd().format(DateTime.now());
+    widget.feedConsumedController.text = '';
+    widget.mortalityController.text = '';
+    preFillFieldsIfRecordExistsForTheSelectedDate();
+  }
+
   openDatePicker(BuildContext context) async {
     DateTime? date = await showDatePicker(
         context: context,
@@ -38,8 +52,34 @@ class _AddTodayFarmInfoMoodalSheetUIState
         lastDate: DateTime(2040));
     if (date != null) {
       selectedDate = date;
-      widget.dateController.text = DateFormat.yMMMd().format(date);
-      setState(() {});
+      setState(() {
+        preFillFieldsIfRecordExistsForTheSelectedDate();
+      });
+    }
+  }
+
+  void preFillFieldsIfRecordExistsForTheSelectedDate() {
+    widget.dateController.text = DateFormat.yMMMd().format(selectedDate);
+    widget.additionalFeedController.text = '0';
+    widget.totalChicksSoldPiecesController.text = '0';
+    widget.totalChicksSoldWeightController.text = '0';
+    widget.feedConsumedController.text = '';
+    widget.mortalityController.text = '';
+    for (var i = 0; i < widget.farmRecord.farmInformation.length; i++) {
+      var info = widget.farmRecord.farmInformation;
+      if (info[i].date.day == selectedDate.day &&
+          info[i].date.month == selectedDate.month &&
+          info[i].date.year == selectedDate.year) {
+        widget.mortalityController.text = info[i].mortality.toString();
+        widget.feedConsumedController.text = info[i].feedIntake.toString();
+        widget.additionalFeedController.text =
+            info[i].additionalFeed.toString();
+        widget.totalChicksSoldPiecesController.text =
+            info[i].totalChicksSoldPieces.toString();
+        widget.totalChicksSoldWeightController.text =
+            info[i].totalChicksSoldWeight.toString();
+        break;
+      }
     }
   }
 

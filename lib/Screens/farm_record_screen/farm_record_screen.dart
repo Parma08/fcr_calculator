@@ -84,8 +84,8 @@ class _FarmRecordScreenState extends State<FarmRecordScreen> {
                         setState(() {});
                       },
                       child: Container(
-                        padding:
-                            const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 15),
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(10),
@@ -100,12 +100,27 @@ class _FarmRecordScreenState extends State<FarmRecordScreen> {
                           children: [
                             Container(
                               margin: const EdgeInsets.symmetric(vertical: 5),
-                              child: Text(
-                                  DateFormat.yMMMd().format(
-                                      getFarmRecords[index].chickPlacementDate),
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 16)),
+                              child: Row(
+                                children: [
+                                  Text(
+                                      DateFormat.yMMMd().format(
+                                          getFarmRecords[index]
+                                              .chickPlacementDate),
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 16)),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    "(${DateTime.now().difference(getFarmRecords[index].chickPlacementDate).inDays} days)",
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 16,
+                                        color: Colors.teal),
+                                  ),
+                                ],
+                              ),
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -115,7 +130,8 @@ class _FarmRecordScreenState extends State<FarmRecordScreen> {
                                   children: [
                                     Container(
                                       width: constraints.maxWidth * 0.7,
-                                      margin: const EdgeInsets.symmetric(vertical: 5),
+                                      margin: const EdgeInsets.symmetric(
+                                          vertical: 5),
                                       child: Text(
                                         getFarmRecords[index].farmName,
                                         style: const TextStyle(
@@ -135,9 +151,9 @@ class _FarmRecordScreenState extends State<FarmRecordScreen> {
                                         .totalChicksPlaced
                                         .toString(),
                                     style: const TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 16,
-                                    ),
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 16,
+                                        color: Colors.blueGrey),
                                   ),
                                 )
                               ],
