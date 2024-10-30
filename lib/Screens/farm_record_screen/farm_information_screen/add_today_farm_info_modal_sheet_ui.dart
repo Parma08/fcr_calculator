@@ -3,6 +3,7 @@ import 'package:fcr_calculator/utils/gettersetter.dart';
 import 'package:fcr_calculator/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:share_plus/share_plus.dart';
 
 class AddTodayFarmInfoMoodalSheetUI extends StatefulWidget {
   TextEditingController dateController;
@@ -139,6 +140,14 @@ class _AddTodayFarmInfoMoodalSheetUIState
     return true;
   }
 
+  String giveFormattedStringOfEntryForShare(
+      FarmInformationModal farmInformation) {
+    String shareString =
+        "*नई एंट्री*\n${widget.farmRecord.farmName}\n\nतारीख :- ${DateFormat.yMMMd().format(selectedDate)}\nमृत्यु :- ${farmInformation.mortality} Pcs\nखुराक :- ${farmInformation.feedIntake} Kgs\nनया माल :- ${farmInformation.additionalFeed} Kgs\nबिक्री :- ${farmInformation.totalChicksSoldPieces} Pcs || ${farmInformation.totalChicksSoldWeight} Kgs\n";
+
+    return shareString;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -207,8 +216,7 @@ class _AddTodayFarmInfoMoodalSheetUIState
                 }
               }
               showLoader(context);
-
-              widget.farmRecord.farmInformation.add(FarmInformationModal(
+              FarmInformationModal newFarmInfo = FarmInformationModal(
                   date: selectedDate,
                   additionalFeed:
                       double.parse(widget.additionalFeedController.text),
@@ -217,7 +225,8 @@ class _AddTodayFarmInfoMoodalSheetUIState
                   totalChicksSoldPieces:
                       int.parse(widget.totalChicksSoldPiecesController.text),
                   totalChicksSoldWeight: double.parse(
-                      widget.totalChicksSoldWeightController.text)));
+                      widget.totalChicksSoldWeightController.text));
+              widget.farmRecord.farmInformation.add(newFarmInfo);
 
               String status =
                   await addInfoToExistingFarmRecord(widget.farmRecord);
@@ -226,6 +235,7 @@ class _AddTodayFarmInfoMoodalSheetUIState
                 Navigator.of(context).pop();
                 showSuccessDialog(
                     context, 'New Farm Record added successfully');
+                Share.share(giveFormattedStringOfEntryForShare(newFarmInfo));
               } else {
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
