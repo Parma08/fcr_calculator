@@ -4,6 +4,7 @@ import 'package:fcr_calculator/Screens/register_screen.dart';
 import 'package:fcr_calculator/services/firebase_service_counter.dart';
 import 'package:fcr_calculator/services/firebase_service_fcr.dart';
 import 'package:fcr_calculator/tabs_page.dart';
+import 'package:fcr_calculator/utils/counter_gettersetter.dart';
 import 'package:fcr_calculator/utils/gettersetter.dart';
 import 'package:fcr_calculator/utils/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';

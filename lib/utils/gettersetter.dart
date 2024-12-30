@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fcr_calculator/modals/data_modal.dart';
+import 'package:fcr_calculator/utils/counter_gettersetter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -8,22 +9,13 @@ List<EffectiveBirdCostModal> costAnalysisHistory = [];
 List<FarmRecordModal> farmRecordsHistory = [];
 double fontSize = 0;
 UserModal userDetails = UserModal(userName: '', userId: '');
-bool isCounterUser = false;
-
-void setCounterUser(bool value) {
-  isCounterUser = value;
-}
-
-bool isCounterTypeUser() {
-  return isCounterUser;
-}
 
 void resetAllData() {
   fcrCalculationHistory = [];
   costAnalysisHistory = [];
   farmRecordsHistory = [];
   userDetails = UserModal(userName: '', userId: '');
-  isCounterUser = false;
+  resetAllCounterData();
 }
 
 String getUserId() {
@@ -57,7 +49,7 @@ Future<String> setfcrCalculationHistory(
   try {
     await FirebaseFirestore.instance
         .collection('users')
-        .doc(getUserDetails.userId)
+        .doc(getUserId())
         .collection('savedFCRData')
         .doc(calculatedData.id)
         .set(getFCRUserInputDataInJSON(calculatedData));
@@ -156,7 +148,7 @@ Future<String> setCostAnalysisHistory(EffectiveBirdCostModal analysis) async {
   try {
     await FirebaseFirestore.instance
         .collection('users')
-        .doc(getUserDetails.userId)
+        .doc(getUserId())
         .collection('savedCostAnalysisData')
         .doc(analysis.id)
         .set(getCostAnalysisUserInputDataInJSON(analysis.inputs));
@@ -215,7 +207,7 @@ Future<String> setNewFarmRecord(FarmRecordModal farmRecord) async {
   try {
     await FirebaseFirestore.instance
         .collection('users')
-        .doc(getUserDetails.userId)
+        .doc(getUserId())
         .collection('savedFarmData')
         .doc(farmRecord.id)
         .set(getNewFarmRecordDataInJSON(farmRecord));
@@ -232,7 +224,7 @@ Future<String> addInfoToExistingFarmRecord(FarmRecordModal farmRecord) async {
   try {
     await FirebaseFirestore.instance
         .collection('users')
-        .doc(getUserDetails.userId)
+        .doc(getUserId())
         .collection('savedFarmData')
         .doc(farmRecord.id)
         .update({

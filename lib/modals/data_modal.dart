@@ -1,4 +1,3 @@
-
 class CalculationDisplayModal {
   String id;
   FCRInputsModal inputs;
@@ -134,4 +133,70 @@ class FarmInformationModal {
       required this.totalChicksSoldPieces,
       required this.totalChicksSoldWeight,
       required this.additionalFeed});
+}
+
+enum CounterTransactionType {
+  buy,
+  sell,
+  error;
+}
+
+enum ChickenType { bBoiler, cBoiler, error }
+
+ChickenType ChickenTypeStringToEnumConvertor(String type) {
+  switch (type) {
+    case 'bBoiler':
+      return ChickenType.bBoiler;
+    case 'cBoiler':
+      return ChickenType.cBoiler;
+    default:
+      return ChickenType.error;
+  }
+}
+
+String ChickenTypeEnumToStringConvertor(ChickenType type) {
+  switch (type) {
+    case ChickenType.bBoiler:
+      return 'bBoiler';
+    case ChickenType.cBoiler:
+      return 'cBoiler';
+    case ChickenType.error:
+      return 'error';
+  }
+}
+
+String CounterTransactionTypeEnumToStringConvertor(
+    CounterTransactionType transactionType) {
+  switch (transactionType) {
+    case CounterTransactionType.buy:
+      return 'buy';
+    case CounterTransactionType.sell:
+      return 'sell';
+    default:
+      return 'error';
+  }
+}
+
+CounterTransactionType CounterTransactionTypeStringToEnumConvertor(
+    String transactionType) {
+  switch (transactionType) {
+    case 'buy':
+      return CounterTransactionType.buy;
+    case 'sell':
+      return CounterTransactionType.sell;
+    default:
+      return CounterTransactionType.error;
+  }
+}
+
+class CounterTransactionDataModal {
+  String id;
+  ChickenType chickenType;
+  CounterTransactionType counterTransactionType;
+  double weight;
+  CounterTransactionDataModal(
+      {required this.id,
+      required this.weight,
+      required this.chickenType,
+      required this.counterTransactionType});
 }
