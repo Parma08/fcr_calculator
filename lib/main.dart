@@ -1,5 +1,8 @@
+import 'package:fcr_calculator/Screens/counter_screens/counter_tab_page.dart';
+import 'package:fcr_calculator/services/firebase_service_counter.dart';
 import 'package:fcr_calculator/services/firebase_service_fcr.dart';
 import 'package:fcr_calculator/tabs_page.dart';
+import 'package:fcr_calculator/utils/gettersetter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -10,9 +13,18 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   if (FirebaseAuth.instance.currentUser?.uid != null) {
-    var status = await initializeDataFromDB();
-    if (status != 'success') {
-      runApp(ErrorWidget(status));
+    try {
+      await checkIsCounterUser();
+      if (isCounterTypeUser()) {
+      } else {
+        var status = await initializeDataFromDB();
+        if (status != 'success') {
+          runApp(ErrorWidget(status));
+          return;
+        }
+      }
+    } on FirebaseException catch (e) {
+      runApp(ErrorWidget(e.message as String));
       return;
     }
   }
@@ -55,7 +67,29 @@ class MyWidget extends StatelessWidget {
             );
           }
           if (snapshot.hasData) {
-            return const TabsPage();
+            return FutureBuilder(
+                future: checkIsCounterUser(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+
+                  if (snapshot.hasError) {
+                    return const Center(
+                      child: Text('Something went Wrong'),
+                    );
+                  }
+                  if (snapshot.hasData) {
+                    if (isCounterTypeUser()) return const CounterTabPage();
+                    return const TabsPage();
+                  } else {
+                    return const Center(
+                      child: Text('Something went Wrong'),
+                    );
+                  }
+                });
           } else {
             return const LoginScreen();
           }

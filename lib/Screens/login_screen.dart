@@ -1,7 +1,10 @@
+import 'package:fcr_calculator/Screens/counter_screens/counter_tab_page.dart';
 import 'package:fcr_calculator/Screens/guest_user_screen.dart';
 import 'package:fcr_calculator/Screens/register_screen.dart';
+import 'package:fcr_calculator/services/firebase_service_counter.dart';
 import 'package:fcr_calculator/services/firebase_service_fcr.dart';
 import 'package:fcr_calculator/tabs_page.dart';
+import 'package:fcr_calculator/utils/gettersetter.dart';
 import 'package:fcr_calculator/utils/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -34,9 +37,18 @@ class _LoginScreenState extends State<LoginScreen> {
           email: emailController.text.trim(),
           password: passwordController.text.trim());
 
-      await initializeDataFromDB();
+      try {
+        await checkIsCounterUser();
+      } on FirebaseException catch (e) {
+        return ErrorWidget(e.message as String);
+      }
+      if (isCounterTypeUser()) {
+      } else {
+        await initializeDataFromDB();
+      }
       isLoading = false;
       Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_) {
+        if (isCounterTypeUser()) return const CounterTabPage();
         return const TabsPage();
       }), (route) => false);
     } on FirebaseAuthException catch (e) {

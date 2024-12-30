@@ -8,12 +8,22 @@ List<EffectiveBirdCostModal> costAnalysisHistory = [];
 List<FarmRecordModal> farmRecordsHistory = [];
 double fontSize = 0;
 UserModal userDetails = UserModal(userName: '', userId: '');
+bool isCounterUser = false;
+
+void setCounterUser(bool value) {
+  isCounterUser = value;
+}
+
+bool isCounterTypeUser() {
+  return isCounterUser;
+}
 
 void resetAllData() {
   fcrCalculationHistory = [];
   costAnalysisHistory = [];
   farmRecordsHistory = [];
   userDetails = UserModal(userName: '', userId: '');
+  isCounterUser = false;
 }
 
 String getUserId() {
