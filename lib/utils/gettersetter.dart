@@ -1,11 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fcr_calculator/modals/data_modal.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 List<CalculationDisplayModal> fcrCalculationHistory = [];
 List<EffectiveBirdCostModal> costAnalysisHistory = [];
 List<FarmRecordModal> farmRecordsHistory = [];
 double fontSize = 0;
+UserModal userDetails = UserModal(userName: '', userId: '');
+
+void resetAllData() {
+  fcrCalculationHistory = [];
+  costAnalysisHistory = [];
+  farmRecordsHistory = [];
+  userDetails = UserModal(userName: '', userId: '');
+}
+
+String getUserId() {
+  return FirebaseAuth.instance.currentUser!.uid;
+}
 
 void setFontSize(BuildContext context) {
   final mediaQuery = MediaQuery.of(context);
@@ -21,7 +34,6 @@ double get getFontSize {
   return fontSize;
 }
 
-UserModal userDetails = UserModal(userName: '', userId: '');
 void setUserDetails(String name, String id) {
   userDetails = UserModal(userName: name, userId: id);
 }

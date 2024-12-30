@@ -1,6 +1,6 @@
 import 'package:fcr_calculator/Screens/guest_user_screen.dart';
 import 'package:fcr_calculator/Screens/register_screen.dart';
-import 'package:fcr_calculator/services/firebase_service.dart';
+import 'package:fcr_calculator/services/firebase_service_fcr.dart';
 import 'package:fcr_calculator/tabs_page.dart';
 import 'package:fcr_calculator/utils/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -65,7 +65,8 @@ class _LoginScreenState extends State<LoginScreen> {
         height: 60,
         padding: const EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
-            color: const Color(0xFFE4E4E4), borderRadius: BorderRadius.circular(10)),
+            color: const Color(0xFFE4E4E4),
+            borderRadius: BorderRadius.circular(10)),
         child: LayoutBuilder(
           builder: (_, constraints) {
             return Row(
@@ -143,7 +144,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                           child: Center(
                             child: Container(
-                                margin: const EdgeInsets.symmetric(vertical: 20),
+                                margin:
+                                    const EdgeInsets.symmetric(vertical: 20),
                                 width: MediaQuery.of(context).size.width * 0.9,
                                 height: 40,
                                 alignment: Alignment.center,

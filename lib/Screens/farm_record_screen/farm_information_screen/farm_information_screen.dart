@@ -1,7 +1,7 @@
 import 'package:fcr_calculator/Screens/farm_record_screen/farm_information_screen/add_today_farm_info_modal_sheet_ui.dart';
 import 'package:fcr_calculator/Screens/farm_record_screen/farm_information_screen/quick_fcr_calculation_modal_sheet_ui.dart';
 import 'package:fcr_calculator/modals/data_modal.dart';
-import 'package:fcr_calculator/services/firebase_service.dart';
+import 'package:fcr_calculator/services/firebase_service_fcr.dart';
 import 'package:fcr_calculator/table_display.dart';
 import 'package:fcr_calculator/utils/gettersetter.dart';
 import 'package:fcr_calculator/utils/utils.dart';

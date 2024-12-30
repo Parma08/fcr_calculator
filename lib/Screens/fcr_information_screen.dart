@@ -1,6 +1,6 @@
 import 'package:fcr_calculator/Screens/pdf_generator.dart';
 import 'package:fcr_calculator/modals/data_modal.dart';
-import 'package:fcr_calculator/services/firebase_service.dart';
+import 'package:fcr_calculator/services/firebase_service_fcr.dart';
 import 'package:fcr_calculator/utils/gettersetter.dart';
 import 'package:fcr_calculator/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +9,8 @@ import '../table_display.dart';
 
 class FCRInformationScreen extends StatelessWidget {
   CalculationDisplayModal calculationDisplayInformation;
-  FCRInformationScreen({super.key, required this.calculationDisplayInformation});
+  FCRInformationScreen(
+      {super.key, required this.calculationDisplayInformation});
 
   @override
   Widget build(BuildContext context) {

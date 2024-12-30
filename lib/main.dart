@@ -1,4 +1,4 @@
-import 'package:fcr_calculator/services/firebase_service.dart';
+import 'package:fcr_calculator/services/firebase_service_fcr.dart';
 import 'package:fcr_calculator/tabs_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

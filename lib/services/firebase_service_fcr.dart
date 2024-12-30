@@ -4,15 +4,14 @@ import 'package:fcr_calculator/modals/data_modal.dart';
 import 'package:fcr_calculator/utils/gettersetter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-String userId = FirebaseAuth.instance.currentUser!.uid;
-var mainPath = FirebaseFirestore.instance.collection('users').doc(userId);
+var mainPath = FirebaseFirestore.instance.collection('users');
 
 Future<String> getUserDetailsFromDB() async {
   try {
-    await mainPath.get().then((DocumentSnapshot snapshot) {
+    await mainPath.doc(getUserId()).get().then((DocumentSnapshot snapshot) {
       if (snapshot.exists) {
         Map userDetails = snapshot.data() as Map;
-        setUserDetails(userDetails['name'], userId);
+        setUserDetails(userDetails['name'], getUserId());
       }
     });
   } on FirebaseException catch (e) {
@@ -25,6 +24,7 @@ Future<String> getUserDetailsFromDB() async {
 Future<String> getStoredFCRDataFromDB() async {
   try {
     await mainPath
+        .doc(getUserId())
         .collection('savedFCRData')
         .get()
         .then((QuerySnapshot querySnapshot) {
@@ -104,7 +104,7 @@ Future initializeDataFromDB() async {
 
 Future<String> deleteFCREntryFromDatabase(String id) async {
   try {
-    await mainPath.collection('savedFCRData').doc(id).delete();
+    await mainPath.doc(getUserId()).collection('savedFCRData').doc(id).delete();
   } on FirebaseException catch (e) {
     return e.message.toString();
   }
@@ -114,6 +114,7 @@ Future<String> deleteFCREntryFromDatabase(String id) async {
 Future<String> getStoredCostAnalysisDataFromDB() async {
   try {
     await mainPath
+        .doc(getUserId())
         .collection('savedCostAnalysisData')
         .get()
         .then((QuerySnapshot querySnapshot) {
@@ -151,7 +152,11 @@ Future<String> getStoredCostAnalysisDataFromDB() async {
 
 Future<String> deleteCostAnalysisEntryFromDatabase(String id) async {
   try {
-    await mainPath.collection('savedCostAnalysisData').doc(id).delete();
+    await mainPath
+        .doc(getUserId())
+        .collection('savedCostAnalysisData')
+        .doc(id)
+        .delete();
   } on FirebaseException catch (e) {
     return e.message.toString();
   }
@@ -161,6 +166,7 @@ Future<String> deleteCostAnalysisEntryFromDatabase(String id) async {
 Future<String> getStoredFarmDataFromDB() async {
   try {
     await mainPath
+        .doc(getUserId())
         .collection('savedFarmData')
         .get()
         .then((QuerySnapshot querySnapshot) {
@@ -202,7 +208,11 @@ Future<String> getStoredFarmDataFromDB() async {
 
 Future<String> deleteFarmDataRecordFromDatabase(String id) async {
   try {
-    await mainPath.collection('savedFarmData').doc(id).delete();
+    await mainPath
+        .doc(getUserId())
+        .collection('savedFarmData')
+        .doc(id)
+        .delete();
   } on FirebaseException catch (e) {
     return e.message.toString();
   }

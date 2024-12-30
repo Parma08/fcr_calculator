@@ -1,3 +1,4 @@
+import 'package:fcr_calculator/utils/gettersetter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -27,8 +28,9 @@ class ProfileScreen extends StatelessWidget {
             ),
           ),
           GestureDetector(
-            onTap: () {
-              FirebaseAuth.instance.signOut();
+            onTap: () async {
+              resetAllData();
+              await FirebaseAuth.instance.signOut();
             },
             child: Container(
               decoration: BoxDecoration(color: Colors.white, boxShadow: [
