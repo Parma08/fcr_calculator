@@ -23,6 +23,14 @@ Future<bool> checkIsCounterUser() async {
   }
 }
 
+Future<String> initializeCounterDataFromDB() async {
+  var status = await getCounterDetailsFromDB();
+  if (status == 'success') {
+    status = await getTransactionsDetailsFromDB(DateTime.now());
+  }
+  return status;
+}
+
 Future<String> getCounterDetailsFromDB() async {
   try {
     await mainPath.doc(getUserId()).get().then((DocumentSnapshot snapshot) {

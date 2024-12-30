@@ -44,6 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
         return ErrorWidget(e.message as String);
       }
       if (isCounterTypeUser()) {
+        await initializeCounterDataFromDB();
       } else {
         await initializeDataFromDB();
       }

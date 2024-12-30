@@ -17,6 +17,11 @@ void main() async {
     try {
       await checkIsCounterUser();
       if (isCounterTypeUser()) {
+        var status = await initializeCounterDataFromDB();
+        if (status != 'success') {
+          runApp(ErrorWidget(status));
+          return;
+        }
       } else {
         var status = await initializeDataFromDB();
         if (status != 'success') {
