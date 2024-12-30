@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fcr_calculator/modals/data_modal.dart';
 import 'package:fcr_calculator/utils/counter_gettersetter.dart';
@@ -61,14 +63,16 @@ Future<String> getTransactionsDetailsFromDB(DateTime date) async {
         String id = documentSnapshot.id;
         String chickenType = documentData['chickenType'];
         double weight = documentData['weight'];
-        String transactionType = '';
-        if (documentData["transactionType"] == null) {
-          transactionType = 'sell';
-        }
-        transactionType = 'buy';
+        String transactionType = documentData["transactionType"] ?? 'buy';
+        double price = documentData['price'];
+        int pieces = documentData['pieces'];
+        String narration = documentData["narration"] ?? '';
 
         transactions.add(CounterTransactionDataModal(
+            narration: narration,
             id: id,
+            price: price,
+            pieces: pieces,
             weight: weight,
             chickenType: ChickenTypeStringToEnumConvertor(chickenType),
             counterTransactionType:
@@ -92,6 +96,22 @@ Future<String> storeTransactionToDB(
         .collection(formattedDate)
         .doc(transactionDataModal.id)
         .set(getCounterTransactionsDetailsInJSON(transactionDataModal));
+  } on FirebaseException catch (e) {
+    print('ERROR - ${e.message}');
+    return e.message.toString();
+  }
+  return 'success';
+}
+
+Future<String> deleteCounterTransactionFromDB(
+    DateTime date, CounterTransactionDataModal transactionDataModal) async {
+  String formattedDate = getFormattedDateForCounterData(date);
+  try {
+    await mainPath
+        .doc(getUserId())
+        .collection(formattedDate)
+        .doc(transactionDataModal.id)
+        .delete();
   } on FirebaseException catch (e) {
     print('ERROR - ${e.message}');
     return e.message.toString();

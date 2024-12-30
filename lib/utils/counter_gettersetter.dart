@@ -37,16 +37,23 @@ List<CounterTransactionDataModal> getCounterTransactions() {
 
 Map<String, dynamic> getCounterTransactionsDetailsInJSON(
     CounterTransactionDataModal transaction) {
-  if (transaction.counterTransactionType == CounterTransactionType.sell) {
+  if (transaction.narration.isEmpty) {
     return {
-      'chickenType': transaction.chickenType,
-      'weight': transaction.weight
+      'chickenType': ChickenTypeEnumToStringConvertor(transaction.chickenType),
+      'transactionType': CounterTransactionTypeEnumToStringConvertor(
+          transaction.counterTransactionType),
+      'weight': transaction.weight,
+      'pieces': transaction.pieces,
+      'price': transaction.price
     };
   } else {
     return {
       'chickenType': ChickenTypeEnumToStringConvertor(transaction.chickenType),
       'transactionType': 'buy',
-      'weight': transaction.weight
+      'weight': transaction.weight,
+      'pieces': transaction.pieces,
+      'price': transaction.price,
+      'narration': transaction.narration
     };
   }
 }

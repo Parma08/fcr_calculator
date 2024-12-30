@@ -138,30 +138,42 @@ class FarmInformationModal {
 enum CounterTransactionType {
   buy,
   sell,
-  error;
+  other;
 }
 
-enum ChickenType { bBoiler, cBoiler, error }
+enum ChickenType { bBoiler, cBoiler, layer, cockrail, desi, other }
 
 ChickenType ChickenTypeStringToEnumConvertor(String type) {
   switch (type) {
-    case 'bBoiler':
+    case 'B-Boiler':
       return ChickenType.bBoiler;
-    case 'cBoiler':
+    case 'C-Boiler':
       return ChickenType.cBoiler;
+    case 'Layer':
+      return ChickenType.layer;
+    case 'Cockrail':
+      return ChickenType.cockrail;
+    case "Desi":
+      return ChickenType.desi;
     default:
-      return ChickenType.error;
+      return ChickenType.other;
   }
 }
 
 String ChickenTypeEnumToStringConvertor(ChickenType type) {
   switch (type) {
     case ChickenType.bBoiler:
-      return 'bBoiler';
+      return 'B-Boiler';
     case ChickenType.cBoiler:
-      return 'cBoiler';
-    case ChickenType.error:
-      return 'error';
+      return 'C-Boiler';
+    case ChickenType.other:
+      return 'Other';
+    case ChickenType.layer:
+      return 'Layer';
+    case ChickenType.cockrail:
+      return 'Cockrail';
+    case ChickenType.desi:
+      return 'Desi';
   }
 }
 
@@ -185,7 +197,7 @@ CounterTransactionType CounterTransactionTypeStringToEnumConvertor(
     case 'sell':
       return CounterTransactionType.sell;
     default:
-      return CounterTransactionType.error;
+      return CounterTransactionType.other;
   }
 }
 
@@ -194,9 +206,15 @@ class CounterTransactionDataModal {
   ChickenType chickenType;
   CounterTransactionType counterTransactionType;
   double weight;
+  double price;
+  int pieces;
+  String narration;
   CounterTransactionDataModal(
       {required this.id,
+      required this.pieces,
+      required this.narration,
       required this.weight,
       required this.chickenType,
+      required this.price,
       required this.counterTransactionType});
 }

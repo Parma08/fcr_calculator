@@ -547,3 +547,75 @@ class TableDisplaySalesInfo extends StatelessWidget {
     );
   }
 }
+
+class TableDisplayCounterSellInfo extends StatelessWidget {
+  List<CounterTransactionDataModal> counterTransactionsData;
+  Function(CounterTransactionDataModal) deleteCallback;
+  TableDisplayCounterSellInfo(
+      {super.key,
+      required this.counterTransactionsData,
+      required this.deleteCallback});
+
+  Widget counterInfoRowBuilder(String value, double width,
+      {Color color = Colors.black}) {
+    return Container(
+      width: width,
+      height: 50,
+      alignment: Alignment.center,
+      padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
+      decoration: const BoxDecoration(
+          border: Border(
+              top: BorderSide(width: 1, color: Colors.black),
+              bottom: BorderSide(width: 1, color: Colors.black),
+              left: BorderSide(width: 1, color: Colors.black),
+              right: BorderSide(width: 1, color: Colors.black))),
+      child: Text(
+        value,
+        maxLines: 1,
+        style:
+            TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: color),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var maxWidth = MediaQuery.of(context).size.width;
+    return Container(
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              counterInfoRowBuilder("Type", maxWidth * 0.30),
+              counterInfoRowBuilder("Weight", maxWidth * 0.30),
+              counterInfoRowBuilder("Price", maxWidth * 0.30),
+            ],
+          ),
+          ...counterTransactionsData.map((info) {
+            return Tooltip(
+              message: info.narration,
+              child: GestureDetector(
+                onDoubleTap: () {
+                  deleteCallback(info);
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    counterInfoRowBuilder(
+                        ChickenTypeEnumToStringConvertor(info.chickenType),
+                        maxWidth * 0.30),
+                    counterInfoRowBuilder("${info.weight} Kgs", maxWidth * 0.30,
+                        color: Colors.brown),
+                    counterInfoRowBuilder("Rs ${info.price}", maxWidth * 0.30,
+                        color: Colors.brown),
+                  ],
+                ),
+              ),
+            );
+          }).toList()
+        ],
+      ),
+    );
+  }
+}
