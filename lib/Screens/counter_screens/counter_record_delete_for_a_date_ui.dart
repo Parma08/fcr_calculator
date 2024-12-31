@@ -13,27 +13,27 @@ class CounterRecordDeleteForAParticularDate extends StatefulWidget {
 
 class _CounterRecordDeleteForAParticularDateState
     extends State<CounterRecordDeleteForAParticularDate> {
-  DateTime selectedDate = DateTime.now().subtract(Duration(days: 1));
+  DateTime selectedDate = DateTime.now().subtract(const Duration(days: 1));
   @override
   void initState() {
-    selectedDate = DateTime.now().subtract(Duration(days: 1));
+    selectedDate = DateTime.now().subtract(const Duration(days: 1));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: MediaQuery.of(context).size.height * 0.5,
       child: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
-          Text(
+          const Text(
             "Delete record for a particular date",
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           TextButton(
               onPressed: () async {
                 DateTime? date = await showDatePicker(
@@ -48,8 +48,8 @@ class _CounterRecordDeleteForAParticularDateState
                 }
               },
               child: Text(
-                "${DateFormat('dd-MM-yyy').format(selectedDate)}",
-                style: TextStyle(fontSize: 18),
+                DateFormat('dd-MM-yyy').format(selectedDate),
+                style: const TextStyle(fontSize: 18),
               )),
           GestureDetector(
             onTap: () async {
@@ -80,7 +80,7 @@ class _CounterRecordDeleteForAParticularDateState
                   decoration: BoxDecoration(
                       color: Theme.of(context).primaryColor,
                       borderRadius: BorderRadius.circular(100)),
-                  child: Text(
+                  child: const Text(
                     'Delete entry for selected date',
                     style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold),

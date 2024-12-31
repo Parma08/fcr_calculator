@@ -1,10 +1,8 @@
-import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fcr_calculator/modals/data_modal.dart';
 import 'package:fcr_calculator/utils/counter_gettersetter.dart';
 import 'package:fcr_calculator/utils/gettersetter.dart';
-import 'package:intl/intl.dart';
 
 var mainPath = FirebaseFirestore.instance.collection('counter_users');
 

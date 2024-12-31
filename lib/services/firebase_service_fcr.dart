@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fcr_calculator/calculations.dart';
 import 'package:fcr_calculator/modals/data_modal.dart';
 import 'package:fcr_calculator/utils/gettersetter.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 var mainPath = FirebaseFirestore.instance.collection('users');
 

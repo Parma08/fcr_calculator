@@ -1,9 +1,6 @@
-import 'dart:ffi';
 
 import 'package:fcr_calculator/modals/data_modal.dart';
 import 'package:fcr_calculator/services/firebase_service_counter.dart';
-import 'package:fcr_calculator/utils/counter_gettersetter.dart';
-import 'package:fcr_calculator/utils/gettersetter.dart';
 import 'package:fcr_calculator/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -176,7 +173,7 @@ class _CounterRecordModalSheetUIState extends State<CounterRecordModalSheetUI> {
                 controller: narrationController,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             GestureDetector(
@@ -189,7 +186,7 @@ class _CounterRecordModalSheetUIState extends State<CounterRecordModalSheetUI> {
                 showLoader(context);
                 CounterTransactionDataModal counterTransactionDataModal =
                     CounterTransactionDataModal(
-                        id: Uuid().v1(),
+                        id: const Uuid().v1(),
                         narration: narrationController.text,
                         pieces: int.parse(piecesEditingController.text),
                         weight: double.parse(weightController.text),
@@ -232,7 +229,7 @@ class _CounterRecordModalSheetUIState extends State<CounterRecordModalSheetUI> {
                         borderRadius: BorderRadius.circular(100)),
                     child: Text(
                       'Create New ${widget.counterTransactionType == CounterTransactionType.buy ? 'Buy' : 'Sell'} Entry',
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
                     )),
               ),

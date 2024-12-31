@@ -4,9 +4,7 @@ import 'package:fcr_calculator/modals/data_modal.dart';
 import 'package:fcr_calculator/services/firebase_service_counter.dart';
 import 'package:fcr_calculator/table_display.dart';
 import 'package:fcr_calculator/utils/counter_gettersetter.dart';
-import 'package:fcr_calculator/utils/gettersetter.dart';
 import 'package:fcr_calculator/utils/utils.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:intl/intl.dart';
@@ -168,14 +166,14 @@ class _CounterRecordScreenState extends State<CounterRecordScreen> {
         overlayOpacity: 0.5,
         children: [
           SpeedDialChild(
-            child: Icon(Icons.delete_forever),
+            child: const Icon(Icons.delete_forever),
             label: 'Delete',
             onTap: () async {
               var dataDeleted = await showModalBottomSheet(
                   context: context,
                   isScrollControlled: true,
                   builder: (_) {
-                    return CounterRecordDeleteForAParticularDate();
+                    return const CounterRecordDeleteForAParticularDate();
                   });
               if (dataDeleted != null) {
                 showLoader(context);
@@ -193,7 +191,7 @@ class _CounterRecordScreenState extends State<CounterRecordScreen> {
             },
           ),
           SpeedDialChild(
-            child: Icon(Icons.price_change_rounded),
+            child: const Icon(Icons.price_change_rounded),
             label: 'Sell',
             onTap: () async {
               var newDataAdded = await showModalBottomSheet(
@@ -221,7 +219,7 @@ class _CounterRecordScreenState extends State<CounterRecordScreen> {
             },
           ),
           SpeedDialChild(
-            child: Icon(Icons.shopping_cart),
+            child: const Icon(Icons.shopping_cart),
             label: 'Buy',
             onTap: () async {
               var newDataAdded = await showModalBottomSheet(
@@ -250,7 +248,7 @@ class _CounterRecordScreenState extends State<CounterRecordScreen> {
           ),
         ],
       ),
-      body: Container(
+      body: SizedBox(
         height: MediaQuery.of(context).size.height * 0.9,
         child: SingleChildScrollView(
           child: Column(
@@ -263,8 +261,8 @@ class _CounterRecordScreenState extends State<CounterRecordScreen> {
                 },
                 child: !shouldShowTransactionsInfo
                     ? Container(
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        child: Text(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: const Text(
                           "Show transactions Data",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 18),
@@ -273,55 +271,55 @@ class _CounterRecordScreenState extends State<CounterRecordScreen> {
                     : SizedBox(
                         child: Column(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             topInfoTileBuilder("Total Birds Remaining",
                                 "${(totalBirdsBought['pieces'] ?? 0) - (totalBirdsSold['pieces'] ?? 0)} Pcs | ${(totalBirdsBought['weight'] ?? 0) - (totalBirdsSold['weight'] ?? 0)} Kgs",
                                 color: Colors.red),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             topInfoTileBuilder("Total Birds Sold",
                                 "${totalBirdsSold['pieces']} Pcs | ${totalBirdsSold['weight']} Kgs",
                                 color: Colors.green),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             topInfoTileBuilder("Total Birds Bought",
                                 "${totalBirdsBought['pieces']} Pcs | ${totalBirdsBought['weight']} Kgs",
                                 color: Colors.blueGrey),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             topInfoTileBuilder("B Boiler",
                                 "${bBoilerQuantity['pieces']} Pcs | ${bBoilerQuantity['weight']} Kgs"),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             topInfoTileBuilder("C Boiler",
                                 "${cBoilerQuantity['pieces']} Pcs | ${cBoilerQuantity['weight']} Kgs"),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             topInfoTileBuilder("Cockrail",
                                 "${cockrailQuantity['pieces']} Pcs | ${cockrailQuantity['weight']} Kgs"),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             topInfoTileBuilder("Layer",
                                 "${layerQuantity['pieces']} Pcs | ${layerQuantity['weight']} Kgs"),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             topInfoTileBuilder("Desi",
                                 "${desiQuantity['pieces']} Pcs | ${desiQuantity['weight']} Kgs"),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             topInfoTileBuilder("Others",
                                 "${othersQuantity['pieces']} Pcs | ${othersQuantity['weight']} Kgs"),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                           ],
@@ -357,7 +355,7 @@ class _CounterRecordScreenState extends State<CounterRecordScreen> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
@@ -428,7 +426,7 @@ class _CounterRecordScreenState extends State<CounterRecordScreen> {
                   }
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 60,
               )
             ],

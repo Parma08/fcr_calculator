@@ -3,7 +3,6 @@ import 'package:fcr_calculator/services/firebase_service_counter.dart';
 import 'package:fcr_calculator/services/firebase_service_fcr.dart';
 import 'package:fcr_calculator/tabs_page.dart';
 import 'package:fcr_calculator/utils/counter_gettersetter.dart';
-import 'package:fcr_calculator/utils/gettersetter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
