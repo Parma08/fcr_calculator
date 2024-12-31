@@ -49,7 +49,8 @@ Map<String, dynamic> getCounterTransactionsDetailsInJSON(
   } else {
     return {
       'chickenType': ChickenTypeEnumToStringConvertor(transaction.chickenType),
-      'transactionType': 'buy',
+      'transactionType': CounterTransactionTypeEnumToStringConvertor(
+          transaction.counterTransactionType),
       'weight': transaction.weight,
       'pieces': transaction.pieces,
       'price': transaction.price,

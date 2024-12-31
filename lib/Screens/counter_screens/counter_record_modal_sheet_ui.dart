@@ -12,7 +12,11 @@ import 'package:uuid/uuid.dart';
 
 class CounterRecordModalSheetUI extends StatefulWidget {
   CounterTransactionType counterTransactionType;
-  CounterRecordModalSheetUI({super.key, required this.counterTransactionType});
+  DateTime preSelectedDate;
+  CounterRecordModalSheetUI(
+      {super.key,
+      required this.preSelectedDate,
+      required this.counterTransactionType});
 
   @override
   State<CounterRecordModalSheetUI> createState() =>
@@ -31,7 +35,7 @@ class _CounterRecordModalSheetUIState extends State<CounterRecordModalSheetUI> {
   @override
   void initState() {
     super.initState();
-    selectedDate = DateTime.now();
+    selectedDate = widget.preSelectedDate;
     weightController.text = '0';
     priceEditingController.text = '0';
     piecesEditingController.text = '0';
@@ -119,13 +123,13 @@ class _CounterRecordModalSheetUIState extends State<CounterRecordModalSheetUI> {
     return true;
   }
 
-  // String giveFormattedStringOfEntryForShare(
-  //     FarmInformationModal farmInformation) {
-  //   String shareString =
-  //       "*नई एंट्री*\n${farmRecord.farmName}\n\nतारीख :- ${DateFormat.yMMMd().format(selectedDate)}\nमृत्यु :- ${farmInformation.mortality} Pcs\nखुराक :- ${farmInformation.feedIntake} Kgs\nनया माल :- ${farmInformation.additionalFeed} Kgs\nबिक्री :- ${farmInformation.totalChicksSoldPieces} Pcs || ${farmInformation.totalChicksSoldWeight} Kgs\n";
+  String giveFormattedStringOfEntryForShare(
+      CounterTransactionDataModal counterModal) {
+    String shareString =
+        "*New Entry*\n*Entry Type* - ${counterModal.counterTransactionType == CounterTransactionType.buy ? "Buy" : "Sell"}\n*Quantity* - ${counterModal.weight} Kgs | ${counterModal.pieces} Pcs\n*Type* - ${counterModal.chickenType.name.toUpperCase()}\n*Extra Information* - ${counterModal.narration}";
 
-  //   return shareString;
-  // }
+    return shareString;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -183,7 +187,6 @@ class _CounterRecordModalSheetUIState extends State<CounterRecordModalSheetUI> {
                 }
 
                 showLoader(context);
-                print("CHICKEN TYPE ---> $chickenType");
                 CounterTransactionDataModal counterTransactionDataModal =
                     CounterTransactionDataModal(
                         id: Uuid().v1(),
@@ -192,7 +195,10 @@ class _CounterRecordModalSheetUIState extends State<CounterRecordModalSheetUI> {
                         weight: double.parse(weightController.text),
                         chickenType: chickenType as ChickenType,
                         price: double.parse(priceEditingController.text),
-                        counterTransactionType: CounterTransactionType.buy);
+                        counterTransactionType: widget.counterTransactionType ==
+                                CounterTransactionType.buy
+                            ? CounterTransactionType.buy
+                            : CounterTransactionType.sell);
                 String status = await storeTransactionToDB(
                     selectedDate, counterTransactionDataModal);
 
@@ -201,6 +207,8 @@ class _CounterRecordModalSheetUIState extends State<CounterRecordModalSheetUI> {
                   Navigator.of(context).pop(true);
                   showSuccessDialog(
                       context, 'New Farm Record added successfully');
+                  Share.share(giveFormattedStringOfEntryForShare(
+                      counterTransactionDataModal));
                 } else {
                   Navigator.of(context).pop();
                   Navigator.of(context).pop();

@@ -588,8 +588,8 @@ class TableDisplayCounterSellInfo extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               counterInfoRowBuilder("Type", maxWidth * 0.30),
-              counterInfoRowBuilder("Weight", maxWidth * 0.30),
-              counterInfoRowBuilder("Price", maxWidth * 0.30),
+              counterInfoRowBuilder("Weight | Pcs", maxWidth * 0.65),
+              // counterInfoRowBuilder("Price", maxWidth * 0.30),
             ],
           ),
           ...counterTransactionsData.map((info) {
@@ -605,10 +605,12 @@ class TableDisplayCounterSellInfo extends StatelessWidget {
                     counterInfoRowBuilder(
                         ChickenTypeEnumToStringConvertor(info.chickenType),
                         maxWidth * 0.30),
-                    counterInfoRowBuilder("${info.weight} Kgs", maxWidth * 0.30,
+                    counterInfoRowBuilder(
+                        "${info.weight} Kgs | ${info.pieces} Pcs",
+                        maxWidth * 0.65,
                         color: Colors.brown),
-                    counterInfoRowBuilder("Rs ${info.price}", maxWidth * 0.30,
-                        color: Colors.brown),
+                    // counterInfoRowBuilder("Rs ${info.price}", maxWidth * 0.30,
+                    //     color: Colors.brown),
                   ],
                 ),
               ),

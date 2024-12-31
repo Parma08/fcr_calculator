@@ -118,3 +118,18 @@ Future<String> deleteCounterTransactionFromDB(
   }
   return 'success';
 }
+
+Future<String> deleteAllCounterTransactionForADateFromDB(DateTime date) async {
+  String formattedDate = getFormattedDateForCounterData(date);
+  try {
+    var snapshot =
+        await mainPath.doc(getUserId()).collection(formattedDate).get();
+    for (var doc in snapshot.docs) {
+      await doc.reference.delete();
+    }
+  } on FirebaseException catch (e) {
+    print('ERROR - ${e.message}');
+    return e.message.toString();
+  }
+  return 'success';
+}
